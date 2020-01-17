@@ -1,100 +1,63 @@
+// noinspection DuplicatedCode
 Sys = {};
 
+// noinspection DuplicatedCode
+Sys.debug = true;
+
+// noinspection DuplicatedCode
+Sys.id = 'Sys';
+
+// noinspection DuplicatedCode
 Sys.events = ['onbeforeunload', 'oncontextmenu', 'onfocus', 'onkeydown', 'onkeyup', 'onmousedown', 'onmouseup', 'onmousewheel', 'onunload', 'onwheel'];
 
-Sys.Quit = function()
-{
-	if (Sys.frame != null)
-		clearInterval(Sys.frame);
-	var i;
-	for (i = 0; i < Sys.events.length; ++i)
-		window[Sys.events[i]] = null;
-	Host.Shutdown();
-	document.body.style.cursor = 'auto';
-	VID.mainwindow.style.display = 'none';
-	if (COM.registered.value !== 0)
-		document.getElementById('end2').style.display = 'inline';
-	else
-		document.getElementById('end1').style.display = 'inline';
-	throw new Error;
-};
-
-Sys.Print = function(text)
-{
-	if (window.console != null)
-		console.log(text);
-};
-
-Sys.Error = function(text)
-{
-	if (Sys.frame != null)
-		clearInterval(Sys.frame);
-	var i;
-	for (i = 0; i < Sys.events.length; ++i)
-		window[Sys.events[i]] = null;
-	if (Host.initialized === true)
-		Host.Shutdown();
-	document.body.style.cursor = 'auto';
-	i = Con.text.length - 25;
-	if (i < 0)
-		i = 0;
-	if (window.console != null)
-	{
-		for (; i < Con.text.length; ++i)
-			console.log(Con.text[i].text);
-	}
-	alert(text);
-	throw new Error(text);
-};
-
-Sys.FloatTime = function()
-{
-	return Date.now() * 0.001 - Sys.oldtime;
-};
-
-window.onload = function()
-{
-	if (Number.isNaN != null)
-		Q.isNaN = Number.isNaN;
-	else
-		Q.isNaN = isNaN;
-
+// noinspection DuplicatedCode
+Sys.Start = function() {
 	var i;
 
 	var cmdline = decodeURIComponent(document.location.search);
 	var location = document.location;
 	var argv = [location.href.substring(0, location.href.length - location.search.length)];
-	if (cmdline.charCodeAt(0) === 63)
-	{
+
+	if (cmdline.charCodeAt(0) === 63) {
 		var text = '';
 		var quotes = false;
 		var c;
-		for (i = 1; i < cmdline.length; ++i)
-		{
+
+		for (i = 1; i < cmdline.length; ++i) {
 			c = cmdline.charCodeAt(i);
-			if ((c < 32) || (c > 127))
+
+			if ((c < 32) || (c > 127)) {
 				continue;
-			if (c === 34)
-			{
+			}
+
+			if (c === 34) {
 				quotes = !quotes;
 				continue;
 			}
-			if ((quotes === false) && (c === 32))
-			{
-				if (text.length === 0)
+
+			if ((quotes === false) && (c === 32)) {
+				if (text.length === 0) {
 					continue;
+				}
+
 				argv[argv.length] = text;
 				text = '';
+
 				continue;
 			}
+
 			text += cmdline.charAt(i);
 		}
-		if (text.length !== 0)
+
+		if (text.length !== 0) {
 			argv[argv.length] = text;
+		}
 	}
+
 	COM.InitArgv(argv);
 
 	var elem = document.documentElement;
+
 	VID.width = (elem.clientWidth <= 320) ? 320 : elem.clientWidth;
 	VID.height = (elem.clientHeight <= 200) ? 200 : elem.clientHeight;
 
@@ -118,18 +81,27 @@ window.onload = function()
 	Sys.scantokey[40] = Sys.scantokey[98] = Key.k.downarrow;
 	Sys.scantokey[45] = Sys.scantokey[96] = Key.k.ins;
 	Sys.scantokey[46] = Sys.scantokey[110] = Key.k.del;
-	for (i = 48; i <= 57; ++i)
+
+	for (i = 48; i <= 57; ++i) {
 		Sys.scantokey[i] = i; // 0-9
+	}
+
 	Sys.scantokey[59] = Sys.scantokey[186] = 59; // ;
 	Sys.scantokey[61] = Sys.scantokey[187] = 61; // =
-	for (i = 65; i <= 90; ++i)
+
+	for (i = 65; i <= 90; ++i) {
 		Sys.scantokey[i] = i + 32; // a-z
+	}
+
 	Sys.scantokey[106] = 42; // *
 	Sys.scantokey[107] = 43; // +
 	Sys.scantokey[109] = Sys.scantokey[173] = Sys.scantokey[189] = 45; // -
 	Sys.scantokey[111] = Sys.scantokey[191] = 47; // /
-	for (i = 112; i <= 123; ++i)
+
+	for (i = 112; i <= 123; ++i) {
 		Sys.scantokey[i] = i - 112 + Key.k.f1; // f1-f12
+	}
+
 	Sys.scantokey[188] = 44; // ,
 	Sys.scantokey[190] = 46; // .
 	Sys.scantokey[192] = 96; // `
@@ -140,112 +112,250 @@ window.onload = function()
 
 	Sys.oldtime = Date.now() * 0.001;
 
-	Sys.Print('Host.Init\n');
 	Host.Init();
 
-	for (i = 0; i < Sys.events.length; ++i)
+	for (i = 0; i < Sys.events.length; ++i) {
 		window[Sys.events[i]] = Sys[Sys.events[i]];
+	}
 
 	Sys.frame = setInterval(Host.Frame, 1000.0 / 60.0);
 };
 
-Sys.onbeforeunload = function()
-{
-	return 'Are you sure you want to quit?';
+// noinspection DuplicatedCode
+Sys.Quit = function() {
+	Sys.DPrint('Sys.Quit()');
+
+	if (Sys.frame != null) {
+		clearInterval(Sys.frame);
+	}
+
+	var i;
+
+	for (i = 0; i < Sys.events.length; ++i) {
+		window[Sys.events[i]] = null;
+	}
+
+	Host.Shutdown();
+	document.body.style.cursor = 'auto';
+	VID.mainwindow.style.display = 'none';
+
+	if (COM.registered.value !== 0) {
+		document.getElementById('end2').style.display = 'inline';
+	} else {
+		document.getElementById('end1').style.display = 'inline';
+	}
+
+	throw new Error;
 };
 
-Sys.oncontextmenu = function(e)
-{
+// noinspection DuplicatedCode
+Sys.Print = function(text) {
+	if (window.console != null) {
+		console.log(text);
+	}
+};
+
+// noinspection DuplicatedCode
+Sys.DPrint = function(id, name, args) {
+	if (Sys.debug) {
+		if (typeof args === 'object') {
+			Sys.Print(id + '.' + name + '(' + [].slice.apply(args) + ')');
+		} else {
+			Sys.Print(id);
+		}
+	}
+};
+
+// noinspection DuplicatedCode
+Sys.Error = function(text) {
+	if (Sys.frame != null) {
+		clearInterval(Sys.frame);
+	}
+
+	var i;
+
+	for (i = 0; i < Sys.events.length; ++i) {
+		window[Sys.events[i]] = null;
+	}
+
+	if (Host.initialized === true) {
+		Host.Shutdown();
+	}
+
+	document.body.style.cursor = 'auto';
+
+	i = Con.text.length - 25;
+
+	if (i < 0) {
+		i = 0;
+	}
+
+	if (window.console != null) {
+		for (; i < Con.text.length; ++i) {
+			console.error(Con.text[i].text);
+		}
+	}
+
+	alert(text);
+
+	throw new Error(text);
+};
+
+// noinspection DuplicatedCode
+Sys.FloatTime = function() {
+	// noinspection JSConstructorReturnsPrimitive
+	return Date.now() * 0.001 - Sys.oldtime;
+};
+
+/*window.onload = function() {
+	Sys.Start();
+};
+
+Sys.onbeforeunload = function() {
+	return 'Are you sure you want to quit?';
+};*/
+
+// noinspection DuplicatedCode
+Sys.oncontextmenu = function(e) {
 	e.preventDefault();
 };
 
-Sys.onfocus = function()
-{
+// noinspection DuplicatedCode
+Sys.onfocus = function() {
 	var i;
-	for (i = 0; i < 256; ++i)
-	{
+
+	for (i = 0; i < 256; ++i) {
 		Key.Event(i);
 		Key.down[i] = false;
 	}
 };
 
-Sys.onkeydown = function(e)
-{
+// noinspection DuplicatedCode
+Sys.onkeydown = function(e) {
 	var key = Sys.scantokey[e.keyCode];
-	if (key == null)
+
+	if (key == null) {
 		return;
+	}
+
 	Key.Event(key, true);
-	e.preventDefault();
+
+	if (e.keyCode !== 122 && e.keyCode !== 123) {
+		e.preventDefault();
+	}
 };
 
-Sys.onkeyup = function(e)
-{
+// noinspection DuplicatedCode
+Sys.onkeyup = function(e) {
 	var key = Sys.scantokey[e.keyCode];
-	if (key == null)
+
+	if (key == null) {
 		return;
+	}
+
 	Key.Event(key);
-	e.preventDefault();
-};
 
-Sys.onmousedown = function(e)
-{
-	var key;
-	switch (e.which)
-	{
-	case 1:
-		key = Key.k.mouse1;
-		break;
-	case 2:
-		key = Key.k.mouse3;
-		break;
-	case 3:
-		key = Key.k.mouse2;
-		break;
-	default:
-		return;
+	if (e.keyCode !== 122 && e.keyCode !== 123) {
+		e.preventDefault();
 	}
-	Key.Event(key, true)
-	e.preventDefault();
 };
 
-Sys.onmouseup = function(e)
-{
+// noinspection DuplicatedCode
+Sys.onmousedown = function(e) {
 	var key;
-	switch (e.which)
-	{
-	case 1:
-		key = Key.k.mouse1;
-		break;
-	case 2:
-		key = Key.k.mouse3;
-		break;
-	case 3:
-		key = Key.k.mouse2;
-		break;
-	default:
-		return;
+
+	switch (e.which) {
+		case 1:
+			key = Key.k.mouse1;
+			break;
+		case 2:
+			key = Key.k.mouse3;
+			break;
+		case 3:
+			key = Key.k.mouse2;
+			break;
+		default:
+			return;
 	}
-	Key.Event(key)
+
+	Key.Event(key, true);
+
 	e.preventDefault();
 };
 
-Sys.onmousewheel = function(e)
-{
+// noinspection DuplicatedCode
+Sys.onmouseup = function(e) {
+	var key;
+
+	switch (e.which) {
+		case 1:
+			key = Key.k.mouse1;
+			break;
+		case 2:
+			key = Key.k.mouse3;
+			break;
+		case 3:
+			key = Key.k.mouse2;
+			break;
+		default:
+			return;
+	}
+
+	Key.Event(key);
+
+	e.preventDefault();
+};
+
+// noinspection DuplicatedCode
+Sys.onmousewheel = function(e) {
+	// noinspection JSUnresolvedVariable
 	var key = e.wheelDeltaY > 0 ? Key.k.mwheelup : Key.k.mwheeldown;
+
 	Key.Event(key, true);
 	Key.Event(key);
+
 	e.preventDefault();
 };
 
-Sys.onunload = function()
-{
+// noinspection DuplicatedCode
+Sys.onunload = function() {
 	Host.Shutdown();
 };
 
-Sys.onwheel = function(e)
-{
+// noinspection DuplicatedCode
+Sys.onwheel = function(e) {
 	var key = e.deltaY < 0 ? Key.k.mwheelup : Key.k.mwheeldown;
+
 	Key.Event(key, true);
 	Key.Event(key);
+
 	e.preventDefault();
+};
+
+// noinspection DuplicatedCode
+Sys.ongamepadpoll = function(e) {
+	Key.gamepadlastaxes = e.axes;
+
+	if (Key.gamepadlastbuttons) {
+		for (var i = 0; i < e.buttons.length; i++) {
+			// noinspection DuplicatedCode
+			if (e.buttons[i].value !== Key.gamepadlastbuttons[i]) {
+				if (e.buttons[i].value) {
+					Key.Event(Key.k['joy' + (i + 1)], true);
+					//console.log("JOY"+(i+1), true)
+				} else {
+					Key.Event(Key.k['joy' + (i + 1)]);
+					//console.log("JOY"+(i+1), false)
+				}
+			}
+		}
+
+		Key.gamepadlastbuttons = e.buttons.map(function(b) {
+			return b.value;
+		});
+	} else {
+		Key.gamepadlastbuttons = e.buttons.map(function(b) {
+			return b.value;
+		});
+	}
 };
