@@ -10,7 +10,7 @@ COM.Parse = function(data)
 	var i = 0, c;
 	if (data.length === 0)
 		return;
-		
+
 	var skipwhite = true;
 	for (;;)
 	{
@@ -166,13 +166,13 @@ COM.LoadFile = function(filename)
 					return new ArrayBuffer(0);
 				try
 				{
-					fd = Node.fs.openSync(search.filename + '/pak' + j + '.pak', 'r');
+					fd = Node.fs.openSync(search.filename + '/pak' + j + '.zip', 'r');
 				}
 				catch (e)
 				{
 					break;
 				}
-				Sys.Print('PackFile: ' + search.filename + '/pak' + j + '.pak : ' + filename + '\n')
+				Sys.Print('PackFile: ' + search.filename + '/pak' + j + '.zip : ' + filename + '\n')
 				src = new Buffer(file.filelen);
 				Node.fs.readSync(fd, src, 0, file.filelen, file.filepos);
 				Node.fs.closeSync(fd);
@@ -293,7 +293,7 @@ COM.AddGameDirectory = function(dir)
 	var pak, i = 0;
 	for (;;)
 	{
-		pak = COM.LoadPackFile(dir + '/' + 'pak' + i + '.pak');
+		pak = COM.LoadPackFile(dir + '/' + 'pak' + i + '.zip');
 		if (pak == null)
 			break;
 		search.pack[search.pack.length] = pak;
@@ -306,7 +306,7 @@ COM.InitFilesystem = function()
 {
 	var i;
 	var search;
-	
+
 	i = COM.CheckParm('-basedir');
 	if (i != null)
 	{
@@ -316,12 +316,12 @@ COM.InitFilesystem = function()
 	}
 	else
 		COM.AddGameDirectory('id1');
-		
+
 	if (COM.rogue === true)
 		COM.AddGameDirectory('rogue');
 	else if (COM.hipnotic === true)
 		COM.AddGameDirectory('hipnotic');
-		
+
 	i = COM.CheckParm('-game');
 	if (i != null)
 	{
