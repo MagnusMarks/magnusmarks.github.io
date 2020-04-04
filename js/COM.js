@@ -360,8 +360,8 @@ COM.LoadFile = function(filename) {
 					return new ArrayBuffer(0);
 				}
 
-				//xhr.open('GET', search.filename + '/pak' + j + '.zip', false);
-				xhr.open('GET', PAK[j]['pak' + j], false);
+				xhr.open('GET', search.filename + '/pak' + j + '.zip', false);
+				// xhr.open('GET', PAK[j]['pak' + j], false);
 				xhr.setRequestHeader('Range', 'bytes=' + file.filepos + '-' + (file.filepos + file.filelen - 1));
 				xhr.send();
 
@@ -426,8 +426,8 @@ COM.LoadPackFile = function(packfile) {
 
 	var paknumber = parseInt(packfile.split('.')[0].split('/')[1].replace('pak', ''), 10);
 
-	// xhr.open('GET', packfile, false);
-	xhr.open('GET', PAK[paknumber]['pak' + paknumber], false);
+	xhr.open('GET', packfile, false);
+	// xhr.open('GET', PAK[paknumber]['pak' + paknumber], false);
 	xhr.setRequestHeader('Range', 'bytes=0-11');
 	xhr.send();
 
@@ -453,8 +453,8 @@ COM.LoadPackFile = function(packfile) {
 
 	// noinspection DuplicatedCode
 	if (numpackfiles !== 0) {
-		// xhr.open('GET', packfile, false);
-		xhr.open('GET', PAK[paknumber]['pak' + paknumber], false);
+		xhr.open('GET', packfile, false);
+		// xhr.open('GET', PAK[paknumber]['pak' + paknumber], false);
 		xhr.setRequestHeader('Range', 'bytes=' + dirofs + '-' + (dirofs + dirlen - 1));
 		xhr.send();
 

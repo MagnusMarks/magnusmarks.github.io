@@ -207,11 +207,11 @@ Sys.FloatTime = function() {
 	return Date.now() * 0.001 - Sys.oldtime;
 };
 
-/*window.onload = function() {
+window.onload = function() {
 	Sys.Start();
 };
 
-Sys.onbeforeunload = function() {
+/*Sys.onbeforeunload = function() {
 	return 'Are you sure you want to quit?';
 };*/
 

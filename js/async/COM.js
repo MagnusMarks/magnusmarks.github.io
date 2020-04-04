@@ -277,8 +277,8 @@ COM.LoadFile = async (filename) => {
 					Draw.EndDisc();
 					return new ArrayBuffer(0);
 				}
-				//const gotFile = await COM.GetFileRange(search.filename + '/pak' + j + '.zip', file.filepos, (file.filepos + file.filelen - 1));
-				const gotFile = await COM.GetFileRange(PAK[j]['pak' + j], file.filepos, (file.filepos + file.filelen - 1));
+				const gotFile = await COM.GetFileRange(search.filename + '/pak' + j + '.zip', file.filepos, (file.filepos + file.filelen - 1));
+				// const gotFile = await COM.GetFileRange(PAK[j]['pak' + j], file.filepos, (file.filepos + file.filelen - 1));
 
 				if ((gotFile.status >= 200) && (gotFile.status <= 299) && (gotFile.responseText.length === file.filelen))
 				{
@@ -320,8 +320,8 @@ COM.LoadTextFile = async (filename) => {
 COM.LoadPackFile = async (packfile) => {
 	var paknumber = parseInt(packfile.split('.')[0].split('/')[1].replace('pak', ''), 10);
 
-	// const gotHeader = await COM.GetFileRange(packfile, 0, 11);
-	const gotHeader = await COM.GetFileRange(PAK[paknumber]['pak' + paknumber], 0, 11);
+	const gotHeader = await COM.GetFileRange(packfile, 0, 11);
+	// const gotHeader = await COM.GetFileRange(PAK[paknumber]['pak' + paknumber], 0, 11);
 	if ((gotHeader.status <= 199) || (gotHeader.status >= 300) || (gotHeader.responseText.length !== 12))
 		return;
 	var header = new DataView(Q.strmem(gotHeader.responseText));
@@ -335,8 +335,8 @@ COM.LoadPackFile = async (packfile) => {
 	var pack = [];
 	if (numpackfiles !== 0)
 	{
-		//const fileInfo = await COM.GetFileRange(packfile, dirofs, (dirofs + dirlen - 1));
-		const fileInfo = await COM.GetFileRange(PAK[paknumber]['pak' + paknumber], dirofs, (dirofs + dirlen - 1));
+		const fileInfo = await COM.GetFileRange(packfile, dirofs, (dirofs + dirlen - 1));
+		// const fileInfo = await COM.GetFileRange(PAK[paknumber]['pak' + paknumber], dirofs, (dirofs + dirlen - 1));
 		if ((fileInfo.status <= 199) || (fileInfo.status >= 300) || (fileInfo.responseText.length !== dirlen))
 			return;
 		var info = Q.strmem(fileInfo.responseText);

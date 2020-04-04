@@ -49,7 +49,7 @@ Sys.FloatTime = () => {
 	return Date.now() * 0.001 - Sys.oldtime;
 };
 
-Sys.Start = async () => {
+window.onload = async () => {
 	if (Number.isNaN != null)
 		Q.isNaN = Number.isNaN;
 	else

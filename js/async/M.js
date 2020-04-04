@@ -362,7 +362,7 @@ M.Save_Key = async (k) => {
 // Multiplayer menu
 M.multiplayer_cursor = 0;
 M.multiplayer_cursor_table = [56, 72, 96, 120, 156];
-M.multiplayer_joinname = '';
+M.multiplayer_joinname = 'q1.emupedia.net:26000';
 M.multiplayer_items = 5;
 
 M.Menu_MultiPlayer_f = () => {
