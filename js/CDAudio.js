@@ -15,7 +15,7 @@ CDAudio.Play = function(track, looping) {
 		return;
 	}
 
-	track -= 1;
+	track -= 2;
 
 	if (CDAudio.playTrack === track) {
 		if (CDAudio.cd != null) {
@@ -174,7 +174,7 @@ CDAudio.Init = function() {
 	var i, j, track;
 	var xhr = new XMLHttpRequest();
 
-	for (i = 2; i <= 99; ++i) {
+	for (i = 1; i <= 99; ++i) {
 		track = '/music/track' + (i <= 9 ? '0' : '') + i + '.ogg';
 
 		for (j = COM.searchpaths.length - 1; j >= 0; --j) {
