@@ -1,10 +1,7 @@
-// noinspection DuplicatedCode
 W = {};
 
-// noinspection DuplicatedCode
 W.lumps = [];
 
-// noinspection DuplicatedCode
 W.LoadWadFile = function(filename) {
 	var base = COM.LoadFile(filename);
 
@@ -22,7 +19,7 @@ W.LoadWadFile = function(filename) {
 	var infotableofs = view.getUint32(8, true);
 	var i, size, lump;
 
-	// noinspection DuplicatedCode
+
 	for (i = 0; i < numlumps; ++i) {
 		size = view.getUint32(infotableofs + 4, true);
 		lump = new ArrayBuffer(size);
@@ -32,7 +29,6 @@ W.LoadWadFile = function(filename) {
 	}
 };
 
-// noinspection DuplicatedCode
 W.GetLumpName = function(name) {
 	var lump = W.lumps[name];
 

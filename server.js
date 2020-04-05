@@ -11,9 +11,9 @@ Node = {
 require('./server/Cmd.js');
 require('./server/COM.js');
 require('./server/Console.js');
-require('./server/CRC.js');
-require('./server/Cvar.js');
-require('./server/Def.js');
+require('./js/CRC.js');
+require('./js/Cvar.js');
+require('./js/Def.js');
 require('./server/ED.js');
 require('./server/Host.js');
 require('./server/Mod.js');

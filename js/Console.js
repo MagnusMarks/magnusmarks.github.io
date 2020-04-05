@@ -1,16 +1,13 @@
-// noinspection DuplicatedCode
 Con = {};
 
-// noinspection DuplicatedCode
 Con.id = 'Con';
-// noinspection DuplicatedCode
+
 Con.backscroll = 0;
-// noinspection DuplicatedCode
+
 Con.current = 0;
-// noinspection DuplicatedCode
+
 Con.text = [];
 
-// noinspection DuplicatedCode
 Con.ToggleConsole_f = function() {
 	Sys.DPrint('Con.ToggleConsole_f()');
 
@@ -32,7 +29,6 @@ Con.ToggleConsole_f = function() {
 	Key.dest.value = Key.dest.console;
 };
 
-// noinspection DuplicatedCode
 Con.Clear_f = function() {
 	Sys.DPrint('Con.Clear_f()');
 
@@ -41,7 +37,6 @@ Con.Clear_f = function() {
 	Con.text = [];
 };
 
-// noinspection DuplicatedCode
 Con.ClearNotify = function() {
 	Sys.DPrint('Con.ClearNotify()');
 
@@ -56,7 +51,6 @@ Con.ClearNotify = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 Con.MessageMode_f = function() {
 	Sys.DPrint('Con.MessageMode_f()');
 
@@ -64,7 +58,6 @@ Con.MessageMode_f = function() {
 	Key.team_message = false;
 };
 
-// noinspection DuplicatedCode
 Con.MessageMode2_f = function() {
 	Sys.DPrint('Con.MessageMode2_f()');
 
@@ -72,7 +65,6 @@ Con.MessageMode2_f = function() {
 	Key.team_message = true;
 };
 
-// noinspection DuplicatedCode
 Con.Init = function() {
 	Sys.DPrint('Con.Init()');
 
@@ -92,7 +84,6 @@ Con.Init = function() {
 	Cmd.AddCommand('clear', Con.Clear_f);
 };
 
-// noinspection DuplicatedCode
 Con.Print = function(msg) {
 	if (Con.debuglog === true) {
 		var data = COM.LoadTextFile('qconsole.log');
@@ -142,14 +133,12 @@ Con.Print = function(msg) {
 	}
 };
 
-// noinspection DuplicatedCode
 Con.DPrint = function(msg) {
 	if (Host.developer.value !== 0) {
 		Con.Print(msg);
 	}
 };
 
-// noinspection DuplicatedCode
 Con.DrawInput = function() {
 	// Sys.DPrint('Con.DrawInput()');
 
@@ -167,7 +156,6 @@ Con.DrawInput = function() {
 	Draw.String(8, Con.vislines - 16, text);
 };
 
-// noinspection DuplicatedCode
 Con.DrawNotify = function() {
 	// Sys.DPrint('Con.DrawNotify()');
 
@@ -192,7 +180,6 @@ Con.DrawNotify = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 Con.DrawConsole = function(lines) {
 	// Sys.DPrint('Con.DrawConsole()');
 

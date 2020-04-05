@@ -1,10 +1,7 @@
-// noinspection DuplicatedCode
 CL = {};
 
-// noinspection DuplicatedCode
 CL.id = 'CL';
 
-// noinspection DuplicatedCode
 CL.cshift = {
 	contents: 0,
 	damage: 1,
@@ -12,7 +9,6 @@ CL.cshift = {
 	powerup: 3
 };
 
-// noinspection DuplicatedCode
 CL.active = {
 	disconnected: 0,
 	connecting: 1,
@@ -21,7 +17,6 @@ CL.active = {
 
 // demo
 
-// noinspection DuplicatedCode
 CL.StopPlayback = function() {
 	Sys.DPrint(CL.id, 'StopPlayback', arguments);
 
@@ -38,7 +33,6 @@ CL.StopPlayback = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.WriteDemoMessage = function() {
 	Sys.DPrint(CL.id, 'WriteDemoMessage', arguments);
 
@@ -62,11 +56,10 @@ CL.WriteDemoMessage = function() {
 	CL.cls.demoofs = len;
 };
 
-// noinspection DuplicatedCode
 CL.GetMessage = function() {
 	// Sys.DPrint('CL.GetMessage()');
 
-	// noinspection DuplicatedCode
+
 	if (CL.cls.demoplayback === true) {
 		if (CL.cls.signon === 4) {
 			if (CL.cls.timedemo === true) {
@@ -150,7 +143,6 @@ CL.GetMessage = function() {
 	return r;
 };
 
-// noinspection DuplicatedCode
 CL.Stop_f = function() {
 	Sys.DPrint('CL.Stop_f()');
 
@@ -178,7 +170,6 @@ CL.Stop_f = function() {
 	Con.Print('Completed demo\n');
 };
 
-// noinspection DuplicatedCode
 CL.Record_f = function() {
 	Sys.DPrint('CL.Record_f()');
 
@@ -229,7 +220,6 @@ CL.Record_f = function() {
 	CL.cls.demorecording = true;
 };
 
-// noinspection DuplicatedCode
 CL.PlayDemo_f = function() {
 	Sys.DPrint('CL.PlayDemo_f()');
 
@@ -286,7 +276,6 @@ CL.PlayDemo_f = function() {
 	CL.cls.demoofs = i + 1;
 };
 
-// noinspection DuplicatedCode
 CL.FinishTimeDemo = function() {
 	Sys.DPrint('CL.FinishTimeDemo()');
 
@@ -302,7 +291,6 @@ CL.FinishTimeDemo = function() {
 	Con.Print(frames + ' frames ' + time.toFixed(1) + ' seconds ' + (frames / time).toFixed(1) + ' fps\n');
 };
 
-// noinspection DuplicatedCode
 CL.TimeDemo_f = function() {
 	Sys.DPrint('CL.TimeDemo_f()');
 
@@ -323,7 +311,6 @@ CL.TimeDemo_f = function() {
 };
 
 // input
-// noinspection DuplicatedCode
 CL.kbutton = {
 	mlook: 0,
 	klook: 1,
@@ -344,9 +331,10 @@ CL.kbutton = {
 	movedown: 16,
 	num: 17
 };
+
 CL.kbuttons = [];
 
-// noinspection DuplicatedCode
+
 CL.KeyDown = function() {
 	// Sys.DPrint('CL.KeyDown()');
 
@@ -385,7 +373,6 @@ CL.KeyDown = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.KeyUp = function() {
 	// Sys.DPrint('CL.KeyUp()');
 
@@ -425,7 +412,6 @@ CL.KeyUp = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.MLookUp = function() {
 	// Sys.DPrint('CL.MLookUp()');
 
@@ -436,14 +422,12 @@ CL.MLookUp = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.Impulse = function() {
 	Sys.DPrint('CL.Impulse()');
 
 	CL.impulse = Q.atoi(Cmd.argv[1]);
 };
 
-// noinspection DuplicatedCode
 CL.KeyState = function(key) {
 	// Sys.DPrint(CL.id, 'KeyState', arguments);
 
@@ -472,7 +456,6 @@ CL.KeyState = function(key) {
 	return (down !== 0) ? 1.0 : 0.0;
 };
 
-// noinspection DuplicatedCode
 CL.AdjustAngles = function() {
 	// Sys.DPrint('CL.AdjustAngles()');
 
@@ -525,7 +508,6 @@ CL.AdjustAngles = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.BaseMove = function() {
 	// Sys.DPrint('CL.BaseMove()');
 
@@ -570,9 +552,11 @@ CL.BaseMove = function() {
 	}
 };
 
-CL.sendmovebuf = {data: new ArrayBuffer(16), cursize: 0};
+CL.sendmovebuf = {
+	data: new ArrayBuffer(16),
+	cursize: 0
+};
 
-// noinspection DuplicatedCode
 CL.SendMove = function() {
 	// Sys.DPrint('CL.SendMove()');
 
@@ -619,7 +603,6 @@ CL.SendMove = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.InitInput = function() {
 	Sys.DPrint('CL.InitInput()');
 
@@ -652,13 +635,15 @@ CL.cls = {
 	state: 0,
 	spawnparms: '',
 	demonum: 0,
-	message: {data: new ArrayBuffer(8192), cursize: 0}
+	message: {
+		data: new ArrayBuffer(8192),
+		cursize: 0
+	}
 };
 
 CL.static_entities = [];
 CL.visedicts = [];
 
-// noinspection DuplicatedCode
 CL.Rcon_f = function() {
 	Sys.DPrint('CL.Rcon_f()');
 
@@ -712,7 +697,6 @@ CL.Rcon_f = function() {
 	xhr.send();
 };
 
-// noinspection DuplicatedCode
 CL.ClearState = function() {
 	// Sys.DPrint('CL.ClearState()');
 
@@ -792,7 +776,6 @@ CL.ClearState = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.Disconnect = function() {
 	Sys.DPrint('CL.Disconnect()');
 
@@ -801,7 +784,7 @@ CL.Disconnect = function() {
 	if (CL.cls.demoplayback === true) {
 		CL.StopPlayback();
 	} else {
-		// noinspection DuplicatedCode
+
 		if (CL.cls.state === CL.active.connected) {
 			if (CL.cls.demorecording === true) {
 				CL.Stop_f();
@@ -825,7 +808,6 @@ CL.Disconnect = function() {
 	CL.cls.signon = 0;
 };
 
-// noinspection DuplicatedCode
 CL.Connect = function(sock) {
 	Sys.DPrint(CL.id, 'Connect', arguments);
 
@@ -836,7 +818,6 @@ CL.Connect = function(sock) {
 	CL.cls.signon = 0;
 };
 
-// noinspection DuplicatedCode
 CL.EstablishConnection = function(host) {
 	Sys.DPrint('CL.EstablishConnection()');
 
@@ -856,7 +837,6 @@ CL.EstablishConnection = function(host) {
 	CL.Connect(sock);
 };
 
-// noinspection DuplicatedCode
 CL.SignonReply = function() {
 	Sys.DPrint('CL.SignonReply()');
 	Con.DPrint('CL.SignonReply: ' + CL.cls.signon + '\n');
@@ -883,7 +863,6 @@ CL.SignonReply = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.NextDemo = function() {
 	Sys.DPrint('CL.NextDemo()');
 
@@ -908,7 +887,6 @@ CL.NextDemo = function() {
 	Cmd.text = 'playdemo ' + CL.cls.demos[CL.cls.demonum++] + '\n' + Cmd.text;
 };
 
-// noinspection DuplicatedCode
 CL.PrintEntities_f = function() {
 	Sys.DPrint('CL.PrintEntities_f()');
 
@@ -938,7 +916,6 @@ CL.PrintEntities_f = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.AllocDlight = function(key) {
 	// Sys.DPrint(CL.id, 'AllocDlight', arguments);
 
@@ -976,7 +953,6 @@ CL.AllocDlight = function(key) {
 	return dl;
 };
 
-// noinspection DuplicatedCode
 CL.DecayLights = function() {
 	// Sys.DPrint('CL.DecayLights()');
 
@@ -997,7 +973,6 @@ CL.DecayLights = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.LerpPoint = function() {
 	// Sys.DPrint('CL.LerpPoint()');
 
@@ -1039,7 +1014,6 @@ CL.LerpPoint = function() {
 	return frac;
 };
 
-// noinspection DuplicatedCode
 CL.RelinkEntities = function() {
 	// Sys.DPrint('CL.RelinkEntities()');
 
@@ -1181,7 +1155,6 @@ CL.RelinkEntities = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.ReadFromServer = function() {
 	// Sys.DPrint('CL.ReadFromServer()');
 
@@ -1217,7 +1190,6 @@ CL.ReadFromServer = function() {
 	CL.UpdateTEnts();
 };
 
-// noinspection DuplicatedCode
 CL.SendCmd = function() {
 	// Sys.DPrint('CL.SendCmd()');
 
@@ -1254,7 +1226,6 @@ CL.SendCmd = function() {
 	CL.cls.message.cursize = 0;
 };
 
-// noinspection DuplicatedCode
 CL.Init = function() {
 	Sys.DPrint('CL.Init()');
 
@@ -1334,7 +1305,6 @@ CL.svc_strings = [
 	'cutscene'
 ];
 
-// noinspection DuplicatedCode
 CL.EntityNum = function(num) {
 	// Sys.DPrint(CL.id, 'EntityNum', arguments);
 
@@ -1373,7 +1343,6 @@ CL.EntityNum = function(num) {
 	return CL.entities[num];
 };
 
-// noinspection DuplicatedCode
 CL.ParseStartSoundPacket = function() {
 	// Sys.DPrint('CL.ParseStartSoundPacket()');
 
@@ -1390,7 +1359,6 @@ CL.ParseStartSoundPacket = function() {
 
 CL.lastmsg = 0.0;
 
-// noinspection DuplicatedCode
 CL.KeepaliveMessage = function() {
 	// Sys.DPrint('CL.KeepaliveMessage()');
 
@@ -1440,7 +1408,6 @@ CL.KeepaliveMessage = function() {
 	CL.cls.message.cursize = 0;
 };
 
-// noinspection DuplicatedCode
 CL.ParseServerInfo = function() {
 	Sys.DPrint('CL.ParseServerInfo()');
 
@@ -1509,7 +1476,6 @@ CL.ParseServerInfo = function() {
 	Host.noclip_anglehack = false;
 };
 
-// noinspection DuplicatedCode
 CL.ParseUpdate = function(bits) {
 	// Sys.DPrint(CL.id, 'ParseUpdate', arguments);
 
@@ -1572,7 +1538,6 @@ CL.ParseUpdate = function(bits) {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.ParseBaseline = function(ent) {
 	// Sys.DPrint(CL.id, 'ParseBaseline', arguments);
 
@@ -1588,7 +1553,6 @@ CL.ParseBaseline = function(ent) {
 	ent.baseline.angles[2] = MSG.ReadAngle();
 };
 
-// noinspection DuplicatedCode
 CL.ParseClientdata = function(bits) {
 	// Sys.DPrint(CL.id, 'ParseClientdata', arguments);
 
@@ -1646,7 +1610,6 @@ CL.ParseClientdata = function(bits) {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.ParseStatic = function() {
 	// Sys.DPrint('CL.ParseStatic()');
 
@@ -1677,10 +1640,11 @@ CL.ParseStatic = function() {
 	R.currententity = ent;
 	R.emins = [ent.origin[0] + ent.model.mins[0], ent.origin[1] + ent.model.mins[1], ent.origin[2] + ent.model.mins[2]];
 	R.emaxs = [ent.origin[0] + ent.model.maxs[0], ent.origin[1] + ent.model.maxs[1], ent.origin[2] + ent.model.maxs[2]];
+
+	// noinspection TypeScriptValidateTypes,TypeScriptValidateJSTypes,JSValidateTypes
 	R.SplitEntityOnNode(CL.state.worldmodel.nodes[0]);
 };
 
-// noinspection DuplicatedCode
 CL.ParseStaticSound = function() {
 	// Sys.DPrint('CL.ParseStaticSound()');
 
@@ -1691,7 +1655,6 @@ CL.ParseStaticSound = function() {
 	S.StaticSound(CL.state.sound_precache[sound_num], org, vol / 255.0, atten);
 };
 
-// noinspection DuplicatedCode
 CL.Shownet = function(x) {
 	// Sys.DPrint(CL.id, 'Shownet', arguments);
 
@@ -1700,7 +1663,6 @@ CL.Shownet = function(x) {
 	}
 };
 
-// noinspection DuplicatedCode
 CL.ParseServerMessage = function() {
 	// Sys.DPrint('CL.ParseServerMessage()');
 
@@ -1716,7 +1678,7 @@ CL.ParseServerMessage = function() {
 
 	var cmd, i;
 
-	// noinspection DuplicatedCode
+
 	for (; ;) {
 		if (MSG.badread === true) {
 			Host.Error('CL.ParseServerMessage: Bad server message');
@@ -1914,7 +1876,6 @@ CL.ParseServerMessage = function() {
 
 CL.temp_entities = [];
 
-// noinspection DuplicatedCode
 CL.InitTEnts = function() {
 	Sys.DPrint('CL.InitTEnts()');
 
@@ -1927,7 +1888,6 @@ CL.InitTEnts = function() {
 	CL.sfx_r_exp3 = S.PrecacheSound('weapons/r_exp3.wav');
 };
 
-// noinspection DuplicatedCode
 CL.ParseBeam = function(m) {
 	Sys.DPrint(CL.id, 'ParseBeam', arguments);
 
@@ -1970,7 +1930,6 @@ CL.ParseBeam = function(m) {
 	Con.Print('beam list overflow!\n');
 };
 
-// noinspection DuplicatedCode
 CL.ParseTEnt = function() {
 	// Sys.DPrint('CL.ParseTEnt()');
 
@@ -2047,7 +2006,6 @@ CL.ParseTEnt = function() {
 	Sys.Error('CL.ParseTEnt: bad type');
 };
 
-// noinspection DuplicatedCode
 CL.NewTempEntity = function() {
 	Sys.DPrint('CL.NewTempEntity()');
 
@@ -2057,7 +2015,6 @@ CL.NewTempEntity = function() {
 	return ent;
 };
 
-// noinspection DuplicatedCode
 CL.UpdateTEnts = function() {
 	// Sys.DPrint('CL.UpdateTEnts()');
 

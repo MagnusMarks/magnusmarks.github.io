@@ -1,6 +1,5 @@
-// noinspection DuplicatedCode
 Key = {};
-// noinspection DuplicatedCode
+
 Key.k = {
 	tab: 9,
 	enter: 13,
@@ -57,13 +56,13 @@ Key.k = {
 	mwheelup: 239,
 	mwheeldown: 240
 };
-// noinspection DuplicatedCode
+
 Key.lines = [''];
-// noinspection DuplicatedCode
+
 Key.edit_line = '';
-// noinspection DuplicatedCode
+
 Key.history_line = 1;
-// noinspection DuplicatedCode
+
 Key.dest = {
 	game: 0,
 	console: 1,
@@ -72,19 +71,19 @@ Key.dest = {
 
 	value: 0
 };
-// noinspection DuplicatedCode
+
 Key.bindings = [];
-// noinspection DuplicatedCode
+
 Key.consolekeys = [];
-// noinspection DuplicatedCode
+
 Key.shift = [];
-// noinspection DuplicatedCode
+
 Key.down = [];
-// noinspection DuplicatedCode
+
 Key.gamepadlastbuttons = null; // last gamepad state
-// noinspection DuplicatedCode
+
 Key.gamepadlastaxes = null; // last gamepad state (axes)
-// noinspection DuplicatedCode
+
 Key.names = [
 	{name: 'TAB', keynum: Key.k.tab},
 	{name: 'ENTER', keynum: Key.k.enter},
@@ -137,7 +136,6 @@ Key.names = [
 	{name: 'SEMICOLON', keynum: 59}
 ];
 
-// noinspection DuplicatedCode
 Key.Console = function(key) {
 	if (key === Key.k.enter) {
 		Cmd.text += Key.edit_line + '\n';
@@ -243,10 +241,8 @@ Key.Console = function(key) {
 	Key.edit_line += String.fromCharCode(key);
 };
 
-// noinspection DuplicatedCode
 Key.chat_buffer = '';
 
-// noinspection DuplicatedCode
 Key.Message = function(key) {
 	if (key === Key.k.enter) {
 		if (Key.team_message === true) {
@@ -278,7 +274,6 @@ Key.Message = function(key) {
 	Key.chat_buffer = Key.chat_buffer + String.fromCharCode(key);
 };
 
-// noinspection DuplicatedCode
 Key.StringToKeynum = function(str) {
 	if (str.length === 1) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -295,7 +290,6 @@ Key.StringToKeynum = function(str) {
 	}
 };
 
-// noinspection DuplicatedCode
 Key.KeynumToString = function(keynum) {
 	if ((keynum > 32) && (keynum < 127)) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -314,7 +308,6 @@ Key.KeynumToString = function(keynum) {
 	return '<UNKNOWN KEYNUM>';
 };
 
-// noinspection DuplicatedCode
 Key.Unbind_f = function() {
 	if (Cmd.argv.length !== 2) {
 		Con.Print('unbind <key> : remove commands from a key\n');
@@ -328,12 +321,10 @@ Key.Unbind_f = function() {
 	Key.bindings[b] = null;
 };
 
-// noinspection DuplicatedCode
 Key.Unbindall_f = function() {
 	Key.bindings = [];
 };
 
-// noinspection DuplicatedCode
 Key.Bind_f = function() {
 	var c = Cmd.argv.length;
 	if ((c !== 2) && (c !== 3)) {
@@ -361,7 +352,6 @@ Key.Bind_f = function() {
 	Key.bindings[b] = cmd;
 };
 
-// noinspection DuplicatedCode
 Key.WriteBindings = function() {
 	var f = [];
 	var i;
@@ -376,7 +366,6 @@ Key.WriteBindings = function() {
 	return f.join('');
 };
 
-// noinspection DuplicatedCode
 Key.Init = function() {
 	var i;
 
@@ -431,7 +420,6 @@ Key.Init = function() {
 	Cmd.AddCommand('unbindall', Key.Unbindall_f);
 };
 
-// noinspection DuplicatedCode
 Key.Event = function(key, down) {
 	if (CL.cls.state === CL.active.connecting) {
 		return;

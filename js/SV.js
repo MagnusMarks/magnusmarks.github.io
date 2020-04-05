@@ -1,7 +1,5 @@
-// noinspection DuplicatedCode
 SV = {};
 
-// noinspection DuplicatedCode
 SV.movetype = {
 	none: 0,
 	anglenoclip: 1,
@@ -16,7 +14,6 @@ SV.movetype = {
 	bounce: 10
 };
 
-// noinspection DuplicatedCode
 SV.solid = {
 	not: 0,
 	trigger: 1,
@@ -25,14 +22,12 @@ SV.solid = {
 	bsp: 4
 };
 
-// noinspection DuplicatedCode
 SV.damage = {
 	no: 0,
 	yes: 1,
 	aim: 2
 };
 
-// noinspection DuplicatedCode
 SV.fl = {
 	fly: 1,
 	swim: 2,
@@ -51,7 +46,6 @@ SV.fl = {
 
 // main
 
-// noinspection DuplicatedCode
 SV.server = {
 	num_edicts: 0,
 	datagram: {data: new ArrayBuffer(1024), cursize: 0},
@@ -59,10 +53,8 @@ SV.server = {
 	signon: {data: new ArrayBuffer(8192), cursize: 0}
 };
 
-// noinspection DuplicatedCode
 SV.svs = {};
 
-// noinspection DuplicatedCode
 SV.Init = function() {
 	SV.maxvelocity = Cvar.RegisterVariable('sv_maxvelocity', '2000');
 	SV.gravity = Cvar.RegisterVariable('sv_gravity', '800', false, true);
@@ -84,7 +76,6 @@ SV.Init = function() {
 	SV.InitBoxHull();
 };
 
-// noinspection DuplicatedCode
 SV.StartParticle = function(org, dir, color, count) {
 	var datagram = SV.server.datagram;
 
@@ -115,7 +106,6 @@ SV.StartParticle = function(org, dir, color, count) {
 	MSG.WriteByte(datagram, color);
 };
 
-// noinspection DuplicatedCode
 SV.StartSound = function(entity, channel, sample, volume, attenuation) {
 	if ((volume < 0) || (volume > 255)) {
 		Sys.Error('SV.StartSound: volume = ' + volume);
@@ -177,7 +167,6 @@ SV.StartSound = function(entity, channel, sample, volume, attenuation) {
 	MSG.WriteCoord(datagram, entity.v_float[PR.entvars.origin2] + 0.5 * (entity.v_float[PR.entvars.mins2] + entity.v_float[PR.entvars.maxs2]));
 };
 
-// noinspection DuplicatedCode
 SV.SendServerinfo = function(client) {
 	var message = client.message;
 
@@ -214,7 +203,6 @@ SV.SendServerinfo = function(client) {
 	client.spawned = false;
 };
 
-// noinspection DuplicatedCode
 SV.ConnectClient = function(clientnum) {
 	var client = SV.svs.clients[clientnum];
 	var i, spawn_parms;
@@ -269,14 +257,12 @@ SV.ConnectClient = function(clientnum) {
 	SV.SendServerinfo(client);
 };
 
-// noinspection DuplicatedCode
 SV.fatpvs = [];
 
-// noinspection DuplicatedCode
 SV.CheckForNewClients = function() {
 	var ret, i;
 
-	// noinspection DuplicatedCode
+
 	for (; ;) {
 		ret = NET.CheckNewConnections();
 
@@ -300,7 +286,6 @@ SV.CheckForNewClients = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.AddToFatPVS = function(org, node) {
 	var pvs, i, normal, d;
 
@@ -332,7 +317,6 @@ SV.AddToFatPVS = function(org, node) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.FatPVS = function(org) {
 	SV.fatbytes = (SV.server.worldmodel.leafs.length + 31) >> 3;
 
@@ -342,10 +326,10 @@ SV.FatPVS = function(org) {
 		SV.fatpvs[i] = 0;
 	}
 
+	// noinspection TypeScriptValidateTypes,TypeScriptValidateJSTypes,JSValidateTypes
 	SV.AddToFatPVS(org, SV.server.worldmodel.nodes[0]);
 };
 
-// noinspection DuplicatedCode
 SV.WriteEntitiesToClient = function(clent, msg) {
 	SV.FatPVS([
 		clent.v_float[PR.entvars.origin] + clent.v_float[PR.entvars.view_ofs],
@@ -492,7 +476,6 @@ SV.WriteEntitiesToClient = function(clent, msg) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.WriteClientdataToMessage = function(ent, msg) {
 	if ((ent.v_float[PR.entvars.dmg_take] !== 0.0) || (ent.v_float[PR.entvars.dmg_save] !== 0.0)) {
 		var other = SV.server.edicts[ent.v_int[PR.entvars.dmg_inflictor]];
@@ -652,10 +635,8 @@ SV.WriteClientdataToMessage = function(ent, msg) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.clientdatagram = {data: new ArrayBuffer(1024), cursize: 0};
 
-// noinspection DuplicatedCode
 SV.SendClientDatagram = function() {
 	var client = Host.client;
 	var msg = SV.clientdatagram;
@@ -682,7 +663,6 @@ SV.SendClientDatagram = function() {
 	return true;
 };
 
-// noinspection DuplicatedCode
 SV.UpdateToReliableMessages = function() {
 	var i, frags, j, client;
 
@@ -722,7 +702,6 @@ SV.UpdateToReliableMessages = function() {
 	SV.server.reliable_datagram.cursize = 0;
 };
 
-// noinspection DuplicatedCode
 SV.SendClientMessages = function() {
 	SV.UpdateToReliableMessages();
 
@@ -773,7 +752,6 @@ SV.SendClientMessages = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.ModelIndex = function(name) {
 	if (name == null) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -797,7 +775,6 @@ SV.ModelIndex = function(name) {
 	Sys.Error('SV.ModelIndex: model ' + name + ' not precached');
 };
 
-// noinspection DuplicatedCode
 SV.CreateBaseline = function() {
 	var i, svent, baseline;
 	var player = SV.ModelIndex('progs/player.mdl');
@@ -838,12 +815,11 @@ SV.CreateBaseline = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.SaveSpawnparms = function() {
 	SV.svs.serverflags = PR.globals_float[PR.globalvars.serverflags];
 	var i, j;
 
-	// noinspection DuplicatedCode
+
 	for (i = 0; i < SV.svs.maxclients; ++i) {
 		Host.client = SV.svs.clients[i];
 		if (Host.client.active !== true) {
@@ -857,7 +833,6 @@ SV.SaveSpawnparms = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.SpawnServer = function(server) {
 	var i;
 
@@ -987,13 +962,11 @@ SV.SpawnServer = function(server) {
 	Con.DPrint('Server spawned.\n');
 };
 
-// noinspection DuplicatedCode
 SV.GetClientName = function(client) {
 	// noinspection JSConstructorReturnsPrimitive
 	return PR.GetString(PR.netnames + (client.num << 5));
 };
 
-// noinspection DuplicatedCode
 SV.SetClientName = function(client, name) {
 	var ofs = PR.netnames + (client.num << 5), i;
 	for (i = 0; i < name.length; ++i) {
@@ -1004,7 +977,6 @@ SV.SetClientName = function(client, name) {
 
 // move
 
-// noinspection DuplicatedCode
 SV.CheckBottom = function(ent) {
 	var mins = [
 		ent.v_float[PR.entvars.origin] + ent.v_float[PR.entvars.mins],
@@ -1071,7 +1043,6 @@ SV.CheckBottom = function(ent) {
 	return true;
 };
 
-// noinspection DuplicatedCode
 SV.movestep = function(ent, move, relink) {
 	var oldorg = ED.Vector(ent, PR.entvars.origin);
 	var neworg = [];
@@ -1080,7 +1051,7 @@ SV.movestep = function(ent, move, relink) {
 	if ((ent.v_float[PR.entvars.flags] & (SV.fl.swim + SV.fl.fly)) !== 0) {
 		var i, enemy = ent.v_int[PR.entvars.enemy], dz;
 
-		// noinspection DuplicatedCode
+
 		for (i = 0; i <= 1; ++i) {
 			neworg[0] = ent.v_float[PR.entvars.origin] + move[0];
 			neworg[1] = ent.v_float[PR.entvars.origin1] + move[1];
@@ -1095,7 +1066,7 @@ SV.movestep = function(ent, move, relink) {
 			}
 			trace = SV.Move(ED.Vector(ent, PR.entvars.origin), mins, maxs, neworg, 0, ent);
 
-			// noinspection DuplicatedCode
+
 			if (trace.fraction === 1.0) {
 				if (((ent.v_float[PR.entvars.flags] & SV.fl.swim) !== 0) && (SV.PointContents(trace.endpos) === Mod.contents.empty)) {
 					return 0;
@@ -1164,7 +1135,6 @@ SV.movestep = function(ent, move, relink) {
 	return 1;
 };
 
-// noinspection DuplicatedCode
 SV.StepDirection = function(ent, yaw, dist) {
 	ent.v_float[PR.entvars.ideal_yaw] = yaw;
 	PF.changeyaw();
@@ -1187,7 +1157,6 @@ SV.StepDirection = function(ent, yaw, dist) {
 	SV.LinkEdict(ent, true);
 };
 
-// noinspection DuplicatedCode
 SV.NewChaseDir = function(actor, enemy, dist) {
 	var olddir = Vec.Anglemod(((actor.v_float[PR.entvars.ideal_yaw] / 45.0) >> 0) * 45.0);
 	var turnaround = Vec.Anglemod(olddir - 180.0);
@@ -1255,7 +1224,6 @@ SV.NewChaseDir = function(actor, enemy, dist) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.CloseEnough = function(ent, goal, dist) {
 	var i;
 	for (i = 0; i <= 2; ++i) {
@@ -1273,11 +1241,10 @@ SV.CloseEnough = function(ent, goal, dist) {
 
 // phys
 
-// noinspection DuplicatedCode
 SV.CheckAllEnts = function() {
 	var e, check;
 
-	// noinspection DuplicatedCode
+
 	for (e = 1; e < SV.server.num_edicts; ++e) {
 		check = SV.server.edicts[e];
 
@@ -1298,7 +1265,6 @@ SV.CheckAllEnts = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.CheckVelocity = function(ent) {
 	var i, velocity;
 	for (i = 0; i <= 2; ++i) {
@@ -1322,7 +1288,6 @@ SV.CheckVelocity = function(ent) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.RunThink = function(ent) {
 	var thinktime = ent.v_float[PR.entvars.nextthink];
 
@@ -1345,20 +1310,19 @@ SV.RunThink = function(ent) {
 	return (ent.free !== true);
 };
 
-// noinspection DuplicatedCode
 SV.Impact = function(e1, e2) {
 	var old_self = PR.globals_int[PR.globalvars.self];
 	var old_other = PR.globals_int[PR.globalvars.other];
 	PR.globals_float[PR.globalvars.time] = SV.server.time;
 
-	// noinspection DuplicatedCode
+
 	if ((e1.v_int[PR.entvars.touch] !== 0) && (e1.v_float[PR.entvars.solid] !== SV.solid.not)) {
 		PR.globals_int[PR.globalvars.self] = e1.num;
 		PR.globals_int[PR.globalvars.other] = e2.num;
 		PR.ExecuteProgram(e1.v_int[PR.entvars.touch]);
 	}
 
-	// noinspection DuplicatedCode
+
 	if ((e2.v_int[PR.entvars.touch] !== 0) && (e2.v_float[PR.entvars.solid] !== SV.solid.not)) {
 		PR.globals_int[PR.globalvars.self] = e2.num;
 		PR.globals_int[PR.globalvars.other] = e1.num;
@@ -1369,7 +1333,6 @@ SV.Impact = function(e1, e2) {
 	PR.globals_int[PR.globalvars.other] = old_other;
 };
 
-// noinspection DuplicatedCode
 SV.ClipVelocity = function(vec, normal, out, overbounce) {
 	var backoff = (vec[0] * normal[0] + vec[1] * normal[1] + vec[2] * normal[2]) * overbounce;
 
@@ -1387,7 +1350,6 @@ SV.ClipVelocity = function(vec, normal, out, overbounce) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.FlyMove = function(ent, time) {
 	var bumpcount;
 	var numplanes = 0;
@@ -1402,7 +1364,7 @@ SV.FlyMove = function(ent, time) {
 	var time_left = time;
 	var blocked = 0;
 
-	// noinspection DuplicatedCode
+
 	for (bumpcount = 0; bumpcount <= 3; ++bumpcount) {
 		if ((ent.v_float[PR.entvars.velocity] === 0.0) &&
 			(ent.v_float[PR.entvars.velocity1] === 0.0) &&
@@ -1493,7 +1455,6 @@ SV.FlyMove = function(ent, time) {
 	return blocked;
 };
 
-// noinspection DuplicatedCode
 SV.AddGravity = function(ent) {
 	var val = PR.entvars.gravity, ent_gravity;
 	if (val != null) {
@@ -1504,7 +1465,6 @@ SV.AddGravity = function(ent) {
 	ent.v_float[PR.entvars.velocity2] -= ent_gravity * SV.gravity.value * Host.frametime;
 };
 
-// noinspection DuplicatedCode
 SV.PushEntity = function(ent, push) {
 	var end = [
 		ent.v_float[PR.entvars.origin] + push[0],
@@ -1530,7 +1490,6 @@ SV.PushEntity = function(ent, push) {
 	return trace;
 };
 
-// noinspection DuplicatedCode
 SV.PushMove = function(pusher, movetime) {
 	if ((pusher.v_float[PR.entvars.velocity] === 0.0) &&
 		(pusher.v_float[PR.entvars.velocity1] === 0.0) &&
@@ -1562,7 +1521,7 @@ SV.PushMove = function(pusher, movetime) {
 	var e, check, movetype;
 	var entorig, moved = [], moved_edict, i;
 
-	// noinspection DuplicatedCode
+
 	for (e = 1; e < SV.server.num_edicts; ++e) {
 		check = SV.server.edicts[e];
 		if (check.free === true) {
@@ -1597,7 +1556,7 @@ SV.PushMove = function(pusher, movetime) {
 		SV.PushEntity(check, move);
 		pusher.v_float[PR.entvars.solid] = SV.solid.bsp;
 
-		// noinspection DuplicatedCode
+
 		if (SV.TestEntityPosition(check) === true) {
 			if (check.v_float[PR.entvars.mins] === check.v_float[PR.entvars.maxs]) {
 				continue;
@@ -1622,7 +1581,7 @@ SV.PushMove = function(pusher, movetime) {
 				PR.globals_int[PR.globalvars.other] = check.num;
 				PR.ExecuteProgram(pusher.v_int[PR.entvars.blocked]);
 			}
-			// noinspection DuplicatedCode
+
 			for (i = 0; i < moved.length; ++i) {
 				moved_edict = moved[i];
 				moved_edict[3].v_float[PR.entvars.origin] = moved_edict[0];
@@ -1635,7 +1594,6 @@ SV.PushMove = function(pusher, movetime) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.Physics_Pusher = function(ent) {
 	var oldltime = ent.v_float[PR.entvars.ltime];
 	var thinktime = ent.v_float[PR.entvars.nextthink];
@@ -1661,7 +1619,6 @@ SV.Physics_Pusher = function(ent) {
 	PR.ExecuteProgram(ent.v_int[PR.entvars.think]);
 };
 
-// noinspection DuplicatedCode
 SV.CheckStuck = function(ent) {
 	if (SV.TestEntityPosition(ent) !== true) {
 		ent.v_float[PR.entvars.oldorigin] = ent.v_float[PR.entvars.origin];
@@ -1681,7 +1638,7 @@ SV.CheckStuck = function(ent) {
 	var z, i, j;
 	for (z = 0.0; z <= 17.0; ++z) {
 		for (i = -1.0; i <= 1.0; ++i) {
-			// noinspection DuplicatedCode
+
 			for (j = -1.0; j <= 1.0; ++j) {
 				ent.v_float[PR.entvars.origin] = org[0] + i;
 				ent.v_float[PR.entvars.origin1] = org[1] + j;
@@ -1698,7 +1655,6 @@ SV.CheckStuck = function(ent) {
 	Con.DPrint('player is stuck.\n');
 };
 
-// noinspection DuplicatedCode
 SV.CheckWater = function(ent) {
 	var point = [
 		ent.v_float[PR.entvars.origin],
@@ -1728,7 +1684,6 @@ SV.CheckWater = function(ent) {
 	return ent.v_float[PR.entvars.waterlevel] > 1.0;
 };
 
-// noinspection DuplicatedCode
 SV.WallFriction = function(ent, trace) {
 	var forward = [];
 	Vec.AngleVectors(ED.Vector(ent, PR.entvars.v_angle), forward);
@@ -1745,14 +1700,13 @@ SV.WallFriction = function(ent, trace) {
 	ent.v_float[PR.entvars.velocity1] = (ent.v_float[PR.entvars.velocity1] - normal[1] * i) * d;
 };
 
-// noinspection DuplicatedCode
 SV.TryUnstick = function(ent, oldvel) {
 	var oldorg = ED.Vector(ent, PR.entvars.origin);
 	var dir = [2.0, 0.0, 0.0];
 	var i, clip;
-	// noinspection DuplicatedCode
+
 	for (i = 0; i <= 7; ++i) {
-		// noinspection DuplicatedCode
+
 		switch (i) {
 			case 1:
 				dir[0] = 0.0;
@@ -1802,7 +1756,6 @@ SV.TryUnstick = function(ent, oldvel) {
 	return 7;
 };
 
-// noinspection DuplicatedCode
 SV.WalkMove = function(ent) {
 	var oldonground = ent.v_float[PR.entvars.flags] & SV.fl.onground;
 	ent.v_float[PR.entvars.flags] ^= oldonground;
@@ -1853,7 +1806,6 @@ SV.WalkMove = function(ent) {
 	ED.SetVector(ent, PR.entvars.velocity, nostepvel);
 };
 
-// noinspection DuplicatedCode
 SV.Physics_Client = function(ent) {
 	if (SV.svs.clients[ent.num - 1].active !== true) {
 		return;
@@ -1869,7 +1821,7 @@ SV.Physics_Client = function(ent) {
 		if (SV.RunThink(ent) !== true) {
 			return;
 		}
-		// noinspection DuplicatedCode
+
 		switch (movetype) {
 			case SV.movetype.none:
 				break;
@@ -1898,7 +1850,6 @@ SV.Physics_Client = function(ent) {
 	PR.ExecuteProgram(PR.globals_int[PR.globalvars.PlayerPostThink]);
 };
 
-// noinspection DuplicatedCode
 SV.Physics_Noclip = function(ent) {
 	if (SV.RunThink(ent) !== true) {
 		return;
@@ -1912,7 +1863,6 @@ SV.Physics_Noclip = function(ent) {
 	SV.LinkEdict(ent);
 };
 
-// noinspection DuplicatedCode
 SV.CheckWaterTransition = function(ent) {
 	var cont = SV.PointContents(ED.Vector(ent, PR.entvars.origin));
 	if (ent.v_float[PR.entvars.watertype] === 0.0) {
@@ -1935,7 +1885,6 @@ SV.CheckWaterTransition = function(ent) {
 	ent.v_float[PR.entvars.waterlevel] = cont;
 };
 
-// noinspection DuplicatedCode
 SV.Physics_Toss = function(ent) {
 	if (SV.RunThink(ent) !== true) {
 		return;
@@ -1974,7 +1923,6 @@ SV.Physics_Toss = function(ent) {
 	SV.CheckWaterTransition(ent);
 };
 
-// noinspection DuplicatedCode
 SV.Physics_Step = function(ent) {
 	if ((ent.v_float[PR.entvars.flags] & (SV.fl.onground + SV.fl.fly + SV.fl.swim)) === 0) {
 		var hitsound = (ent.v_float[PR.entvars.velocity2] < (SV.gravity.value * -0.1));
@@ -1990,7 +1938,6 @@ SV.Physics_Step = function(ent) {
 	SV.CheckWaterTransition(ent);
 };
 
-// noinspection DuplicatedCode
 SV.Physics = function() {
 	PR.globals_int[PR.globalvars.self] = 0;
 	PR.globals_int[PR.globalvars.other] = 0;
@@ -2039,7 +1986,6 @@ SV.Physics = function() {
 
 // user
 
-// noinspection DuplicatedCode
 SV.SetIdealPitch = function() {
 	var ent = SV.player;
 	if ((ent.v_float[PR.entvars.flags] & SV.fl.onground) === 0) {
@@ -2081,7 +2027,6 @@ SV.SetIdealPitch = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.UserFriction = function() {
 	var ent = SV.player;
 	var vel0 = ent.v_float[PR.entvars.velocity], vel1 = ent.v_float[PR.entvars.velocity1];
@@ -2108,7 +2053,6 @@ SV.UserFriction = function() {
 	ent.v_float[PR.entvars.velocity2] *= newspeed;
 };
 
-// noinspection DuplicatedCode
 SV.Accelerate = function(wishvel, air) {
 	var ent = SV.player;
 	var wishdir = [wishvel[0], wishvel[1], wishvel[2]];
@@ -2132,7 +2076,6 @@ SV.Accelerate = function(wishvel, air) {
 	ent.v_float[PR.entvars.velocity2] += accelspeed * wishdir[2];
 };
 
-// noinspection DuplicatedCode
 SV.WaterMove = function() {
 	var ent = SV.player, cmd = Host.client.cmd;
 	var forward = [], right = [];
@@ -2189,7 +2132,6 @@ SV.WaterMove = function() {
 	ent.v_float[PR.entvars.velocity2] += accelspeed * (wishvel[2] / wishspeed);
 };
 
-// noinspection DuplicatedCode
 SV.WaterJump = function() {
 	var ent = SV.player;
 	if ((SV.server.time > ent.v_float[PR.entvars.teleport_time]) || (ent.v_float[PR.entvars.waterlevel] === 0.0)) {
@@ -2200,7 +2142,6 @@ SV.WaterJump = function() {
 	ent.v_float[PR.entvars.velocity1] = ent.v_float[PR.entvars.movedir1];
 };
 
-// noinspection DuplicatedCode
 SV.AirMove = function() {
 	var ent = SV.player;
 	var cmd = Host.client.cmd;
@@ -2232,7 +2173,6 @@ SV.AirMove = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.ClientThink = function() {
 	var ent = SV.player;
 
@@ -2268,7 +2208,6 @@ SV.ClientThink = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.ReadClientMove = function() {
 	var client = Host.client;
 	client.ping_times[client.num_pings++ & 15] = SV.server.time - MSG.ReadFloat();
@@ -2287,7 +2226,6 @@ SV.ReadClientMove = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.ReadClientMessage = function() {
 	var ret, cmd, s, i;
 	var cmds = [
@@ -2327,7 +2265,7 @@ SV.ReadClientMessage = function() {
 
 		MSG.BeginReading();
 
-		// noinspection DuplicatedCode
+
 		for (; ;) {
 			if (Host.client.active !== true) {
 				return;
@@ -2375,7 +2313,6 @@ SV.ReadClientMessage = function() {
 	} while (ret === 1);
 };
 
-// noinspection DuplicatedCode
 SV.RunClients = function() {
 	var i;
 	for (i = 0; i < SV.svs.maxclients; ++i) {
@@ -2400,14 +2337,12 @@ SV.RunClients = function() {
 
 // world
 
-// noinspection DuplicatedCode
 SV.move = {
 	normal: 0,
 	nomonsters: 1,
 	missile: 2
 };
 
-// noinspection DuplicatedCode
 SV.InitBoxHull = function() {
 	SV.box_clipnodes = [];
 	SV.box_planes = [];
@@ -2438,7 +2373,6 @@ SV.InitBoxHull = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.HullForEntity = function(ent, mins, maxs, offset) {
 	if (ent.v_float[PR.entvars.solid] !== SV.solid.bsp) {
 		SV.box_planes[0].dist = ent.v_float[PR.entvars.maxs] - mins[0];
@@ -2477,7 +2411,6 @@ SV.HullForEntity = function(ent, mins, maxs, offset) {
 	return hull;
 };
 
-// noinspection DuplicatedCode
 SV.CreateAreaNode = function(depth, mins, maxs) {
 	var anode = {};
 	SV.areanodes[SV.areanodes.length++] = anode;
@@ -2503,7 +2436,6 @@ SV.CreateAreaNode = function(depth, mins, maxs) {
 	return anode;
 };
 
-// noinspection DuplicatedCode
 SV.UnlinkEdict = function(ent) {
 	if (ent.area.prev != null) {
 		ent.area.prev.next = ent.area.next;
@@ -2514,11 +2446,10 @@ SV.UnlinkEdict = function(ent) {
 	ent.area.prev = ent.area.next = null;
 };
 
-// noinspection DuplicatedCode
 SV.TouchLinks = function(ent, node) {
 	var l, next, touch, old_self, old_other;
 
-	// noinspection DuplicatedCode
+
 	for (l = node.trigger_edicts.next; l !== node.trigger_edicts; l = next) {
 		next = l.next;
 		touch = l.ent;
@@ -2556,7 +2487,6 @@ SV.TouchLinks = function(ent, node) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.FindTouchedLeafs = function(ent, node) {
 	if (node.contents === Mod.contents.solid) {
 		return;
@@ -2580,7 +2510,6 @@ SV.FindTouchedLeafs = function(ent, node) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.LinkEdict = function(ent, touch_triggers) {
 	if ((ent === SV.server.edicts[0]) || (ent.free === true)) {
 		return;
@@ -2607,6 +2536,7 @@ SV.LinkEdict = function(ent, touch_triggers) {
 
 	ent.leafnums = [];
 	if (ent.v_float[PR.entvars.modelindex] !== 0.0) {
+		// noinspection TypeScriptValidateTypes,TypeScriptValidateJSTypes,JSValidateTypes
 		SV.FindTouchedLeafs(ent, SV.server.worldmodel.nodes[0]);
 	}
 
@@ -2640,7 +2570,6 @@ SV.LinkEdict = function(ent, touch_triggers) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.HullPointContents = function(hull, num, p) {
 	var d, node, plane;
 	for (; num >= 0;) {
@@ -2663,7 +2592,6 @@ SV.HullPointContents = function(hull, num, p) {
 	return num;
 };
 
-// noinspection DuplicatedCode
 SV.PointContents = function(p) {
 	var cont = SV.HullPointContents(SV.server.worldmodel.hulls[0], 0, p);
 
@@ -2675,14 +2603,12 @@ SV.PointContents = function(p) {
 	return cont;
 };
 
-// noinspection DuplicatedCode
 SV.TestEntityPosition = function(ent) {
 	var origin = ED.Vector(ent, PR.entvars.origin);
 	// noinspection JSConstructorReturnsPrimitive
 	return SV.Move(origin, ED.Vector(ent, PR.entvars.mins), ED.Vector(ent, PR.entvars.maxs), origin, 0, ent).startsolid;
 };
 
-// noinspection DuplicatedCode
 SV.RecursiveHullCheck = function(hull, num, p1f, p2f, p1, p2, trace) {
 	if (num < 0) {
 		if (num !== Mod.contents.solid) {
@@ -2781,7 +2707,6 @@ SV.RecursiveHullCheck = function(hull, num, p1f, p2f, p1, p2, trace) {
 	trace.endpos = [mid[0], mid[1], mid[2]];
 };
 
-// noinspection DuplicatedCode
 SV.ClipMoveToEntity = function(ent, start, mins, maxs, end) {
 	var trace = {
 		fraction: 1.0,
@@ -2805,7 +2730,6 @@ SV.ClipMoveToEntity = function(ent, start, mins, maxs, end) {
 	return trace;
 };
 
-// noinspection DuplicatedCode
 SV.ClipToLinks = function(node, clip) {
 	var l, touch, solid, trace;
 	for (l = node.solid_edicts.next; l !== node.solid_edicts; l = l.next) {
@@ -2868,7 +2792,6 @@ SV.ClipToLinks = function(node, clip) {
 	}
 };
 
-// noinspection DuplicatedCode
 SV.Move = function(start, mins, maxs, end, type, passedict) {
 	var clip = {
 		trace: SV.ClipMoveToEntity(SV.server.edicts[0], start, mins, maxs, end),

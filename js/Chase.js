@@ -1,7 +1,5 @@
-// noinspection DuplicatedCode
 Chase = {};
 
-// noinspection DuplicatedCode
 Chase.Init = function() {
 	Sys.DPrint('Chase.Init()');
 
@@ -11,7 +9,6 @@ Chase.Init = function() {
 	Chase.active = Cvar.RegisterVariable('chase_active', '0');
 };
 
-// noinspection DuplicatedCode
 Chase.Update = function() {
 	Sys.DPrint('Chase.Update()');
 

@@ -1,15 +1,13 @@
-// noinspection DuplicatedCode
 IN = {};
-// noinspection DuplicatedCode
+
 IN.mouse_x = 0.0;
-// noinspection DuplicatedCode
+
 IN.mouse_y = 0.0;
-// noinspection DuplicatedCode
+
 IN.old_mouse_x = 0.0;
-// noinspection DuplicatedCode
+
 IN.old_mouse_y = 0.0;
 
-// noinspection DuplicatedCode
 IN.StartupMouse = function() {
 	IN.m_filter = Cvar.RegisterVariable('m_filter', '1');
 
@@ -51,12 +49,10 @@ IN.StartupMouse = function() {
 	IN.mouse_avail = true;
 };
 
-// noinspection DuplicatedCode
 IN.Init = function() {
 	IN.StartupMouse();
 };
 
-// noinspection DuplicatedCode
 IN.Shutdown = function() {
 	if (IN.mouse_avail === true) {
 		VID.mainwindow.onclick = null;
@@ -65,7 +61,6 @@ IN.Shutdown = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 IN.MouseMove = function() {
 	if (IN.mouse_avail !== true) {
 		return;
@@ -119,12 +114,10 @@ IN.MouseMove = function() {
 	IN.mouse_x = IN.mouse_y = 0;
 };
 
-// noinspection DuplicatedCode
 IN.Move = function() {
 	IN.MouseMove();
 };
 
-// noinspection DuplicatedCode
 IN.onclick = function() {
 	VID.mainwindow.focus();
 
@@ -156,7 +149,6 @@ IN.onclick = function() {
 	}*/
 };
 
-// noinspection DuplicatedCode
 IN.onmousemove = function(e) {
 	if (document[IN.pointerLockElement] !== VID.mainwindow) {
 		return;
@@ -166,7 +158,6 @@ IN.onmousemove = function(e) {
 	IN.mouse_y += e[IN.movementY];
 };
 
-// noinspection DuplicatedCode
 IN.onpointerlockchange = function() {
 	if (document[IN.pointerLockElement] === VID.mainwindow) {
 		// noinspection UnnecessaryReturnStatementJS

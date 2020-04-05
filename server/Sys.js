@@ -1,11 +1,24 @@
 Sys = {};
 
+Sys.debug = false;
+
 Sys.Quit = function() {
 	process.exit(0);
 };
 
 Sys.Print = function(text) {
 	process.stdout.write(text);
+};
+
+// noinspection DuplicatedCode
+Sys.DPrint = function(id, name, args) {
+	if (Sys.debug) {
+		if (typeof args === 'object') {
+			Sys.Print(id + '.' + name + '(' + [].slice.apply(args) + ')');
+		} else {
+			Sys.Print(id);
+		}
+	}
 };
 
 Sys.Error = function(text) {

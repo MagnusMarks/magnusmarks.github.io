@@ -1,7 +1,5 @@
-// noinspection DuplicatedCode
 Q = {};
 
-// noinspection DuplicatedCode
 Q.memstr = function(src) {
 	var dest = [], i;
 
@@ -16,7 +14,6 @@ Q.memstr = function(src) {
 	return dest.join('');
 };
 
-// noinspection DuplicatedCode
 Q.strmem = function(src) {
 	var buf = new ArrayBuffer(src.length);
 	var dest = new Uint8Array(buf);
@@ -29,7 +26,6 @@ Q.strmem = function(src) {
 	return buf;
 };
 
-// noinspection DuplicatedCode
 Q.atoi = function(str) {
 	if (str == null) {
 		return 0;
@@ -88,7 +84,6 @@ Q.atoi = function(str) {
 	return 0;
 };
 
-// noinspection DuplicatedCode
 Q.atof = function(str) {
 	if (str == null) {
 		return 0.0;
@@ -142,7 +137,6 @@ Q.atof = function(str) {
 	return val;
 };
 
-// noinspection DuplicatedCode
 Q.btoa = function(src) {
 	var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	var val = [];

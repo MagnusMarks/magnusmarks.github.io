@@ -1,13 +1,9 @@
-// noinspection DuplicatedCode
 CDAudio = {};
 
-// noinspection DuplicatedCode
 CDAudio.id = 'CDAudio';
 
-// noinspection DuplicatedCode
 CDAudio.known = [];
 
-// noinspection DuplicatedCode
 CDAudio.Play = function(track, looping) {
 	Sys.DPrint(CDAudio.id, 'Play', arguments);
 
@@ -45,7 +41,6 @@ CDAudio.Play = function(track, looping) {
 	CDAudio.cd.play();
 };
 
-// noinspection DuplicatedCode
 CDAudio.Stop = function() {
 	Sys.DPrint('CDAudio.Stop()');
 
@@ -61,7 +56,6 @@ CDAudio.Stop = function() {
 	CDAudio.cd = null;
 };
 
-// noinspection DuplicatedCode
 CDAudio.Pause = function() {
 	Sys.DPrint('CDAudio.Pause()');
 
@@ -74,7 +68,6 @@ CDAudio.Pause = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CDAudio.Resume = function() {
 	Sys.DPrint('CDAudio.Resume()');
 
@@ -88,7 +81,6 @@ CDAudio.Resume = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CDAudio.CD_f = function() {
 	Sys.DPrint('CDAudio.CD_f()');
 
@@ -98,7 +90,6 @@ CDAudio.CD_f = function() {
 
 	var command = Cmd.argv[1].toLowerCase();
 
-	// noinspection DuplicatedCode
 	switch (command) {
 		case 'on':
 			CDAudio.enabled = true;
@@ -136,7 +127,6 @@ CDAudio.CD_f = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CDAudio.Update = function() {
 	// Sys.DPrint('CDAudio.Update()');
 
@@ -161,7 +151,6 @@ CDAudio.Update = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 CDAudio.Init = function() {
 	Sys.DPrint('CDAudio.Init()');
 

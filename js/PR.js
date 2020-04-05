@@ -1,7 +1,5 @@
-// noinspection DuplicatedCode
 PR = {};
 
-// noinspection DuplicatedCode
 PR.etype = {
 	ev_void: 0,
 	ev_string: 1,
@@ -13,7 +11,6 @@ PR.etype = {
 	ev_pointer: 7
 };
 
-// noinspection DuplicatedCode
 PR.op = {
 	done: 0,
 	mul_f: 1,
@@ -83,10 +80,8 @@ PR.op = {
 	bitor: 65
 };
 
-// noinspection DuplicatedCode
 PR.version = 6;
 
-// noinspection DuplicatedCode
 PR.globalvars = {
 	self: 28, // edict
 	other: 29, // edict
@@ -139,7 +134,6 @@ PR.globalvars = {
 	SetChangeParms: 91 // func
 };
 
-// noinspection DuplicatedCode
 PR.entvars = {
 	modelindex: 0, // float
 	absmin: 1, // vec3
@@ -248,12 +242,10 @@ PR.entvars = {
 	noise3: 104 // string
 };
 
-// noinspection DuplicatedCode
 PR.progheader_crc = 5927;
 
 // cmds
 
-// noinspection DuplicatedCode
 PR.CheckEmptyString = function(s) {
 	var c = s.charCodeAt(0);
 
@@ -264,7 +256,6 @@ PR.CheckEmptyString = function(s) {
 
 // edict
 
-// noinspection DuplicatedCode
 PR.ValueString = function(type, val, ofs) {
 	var val_float = new Float32Array(val);
 	var val_int = new Int32Array(val);
@@ -310,7 +301,6 @@ PR.ValueString = function(type, val, ofs) {
 	return 'bad type ' + type;
 };
 
-// noinspection DuplicatedCode
 PR.UglyValueString = function(type, val, ofs) {
 	var val_float = new Float32Array(val);
 	var val_int = new Int32Array(val);
@@ -350,7 +340,6 @@ PR.UglyValueString = function(type, val, ofs) {
 	return 'bad type ' + type;
 };
 
-// noinspection DuplicatedCode
 PR.GlobalString = function(ofs) {
 	var def = ED.GlobalAtOfs(ofs), line;
 
@@ -367,7 +356,6 @@ PR.GlobalString = function(ofs) {
 	return line;
 };
 
-// noinspection DuplicatedCode
 PR.GlobalStringNoContents = function(ofs) {
 	var def = ED.GlobalAtOfs(ofs), line;
 
@@ -385,7 +373,6 @@ PR.GlobalStringNoContents = function(ofs) {
 	return line;
 };
 
-// noinspection DuplicatedCode
 PR.LoadProgs = function() {
 	var progs = COM.LoadFile('progs.dat');
 
@@ -527,7 +514,6 @@ PR.LoadProgs = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 PR.Init = function() {
 	Cmd.AddCommand('edict', ED.PrintEdict_f);
 	Cmd.AddCommand('edicts', ED.PrintEdicts);
@@ -548,10 +534,8 @@ PR.Init = function() {
 
 // exec
 
-// noinspection DuplicatedCode
 PR.localstack_size = 2048;
 
-// noinspection DuplicatedCode
 PR.opnames = [
 	'DONE',
 	'MUL_F', 'MUL_V', 'MUL_FV', 'MUL_VF',
@@ -575,7 +559,6 @@ PR.opnames = [
 	'BITAND', 'BITOR'
 ];
 
-// noinspection DuplicatedCode
 PR.PrintStatement = function(s) {
 	var text;
 
@@ -612,7 +595,6 @@ PR.PrintStatement = function(s) {
 	Con.Print(text + '\n');
 };
 
-// noinspection DuplicatedCode
 PR.StackTrace = function() {
 	if (PR.depth === 0) {
 		Con.Print('<NO STACK>\n');
@@ -641,7 +623,6 @@ PR.StackTrace = function() {
 	PR.depth = 0;
 };
 
-// noinspection DuplicatedCode
 PR.Profile_f = function() {
 	if (SV.server.active !== true) {
 		return;
@@ -681,7 +662,6 @@ PR.Profile_f = function() {
 	}
 };
 
-// noinspection DuplicatedCode
 PR.RunError = function(error) {
 	PR.PrintStatement(PR.statements[PR.xstatement]);
 	PR.StackTrace();
@@ -689,7 +669,6 @@ PR.RunError = function(error) {
 	Host.Error('Program error');
 };
 
-// noinspection DuplicatedCode
 PR.EnterFunction = function(f) {
 	PR.stack[PR.depth++] = [PR.xstatement, PR.xfunction];
 	var c = f.locals;
@@ -719,7 +698,6 @@ PR.EnterFunction = function(f) {
 	return f.first_statement - 1;
 };
 
-// noinspection DuplicatedCode
 PR.LeaveFunction = function() {
 	if (PR.depth <= 0) {
 		Sys.Error('prog stack underflow');
@@ -741,7 +719,6 @@ PR.LeaveFunction = function() {
 	return PR.stack[PR.depth][0];
 };
 
-// noinspection DuplicatedCode
 PR.ExecuteProgram = function(fnum) {
 	if ((fnum === 0) || (fnum >= PR.functions.length)) {
 		if (PR.globals_int[PR.globalvars.self] !== 0) {
@@ -771,7 +748,7 @@ PR.ExecuteProgram = function(fnum) {
 			PR.PrintStatement(st);
 		}
 
-		// noinspection DuplicatedCode
+
 		switch (st.op) {
 			case PR.op.add_f:
 				PR.globals_float[st.c] = PR.globals_float[st.a] + PR.globals_float[st.b];
@@ -989,7 +966,6 @@ PR.ExecuteProgram = function(fnum) {
 	}
 };
 
-// noinspection DuplicatedCode
 PR.GetString = function(num) {
 	var string = [];
 
@@ -1005,7 +981,6 @@ PR.GetString = function(num) {
 	return string.join('');
 };
 
-// noinspection DuplicatedCode
 PR.NewString = function(s, length) {
 	var ofs = PR.strings.length;
 	var i;
@@ -1034,7 +1009,6 @@ PR.NewString = function(s, length) {
 	return ofs;
 };
 
-// noinspection DuplicatedCode
 PR.TempString = function(string) {
 	var i;
 

@@ -1,13 +1,10 @@
-// noinspection DuplicatedCode
 Loop = {};
 
-// noinspection DuplicatedCode
 Loop.Init = function() {
 	// noinspection JSConstructorReturnsPrimitive
 	return true;
 };
 
-// noinspection DuplicatedCode
 Loop.Connect = function(host) {
 	if (host !== 'local') {
 		return;
@@ -38,7 +35,6 @@ Loop.Connect = function(host) {
 	return Loop.client;
 };
 
-// noinspection DuplicatedCode
 Loop.CheckNewConnections = function() {
 	if (Loop.localconnectpending !== true) {
 		return;
@@ -54,7 +50,6 @@ Loop.CheckNewConnections = function() {
 	return Loop.server;
 };
 
-// noinspection DuplicatedCode
 Loop.GetMessage = function(sock) {
 	if (sock.receiveMessageLength === 0) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -89,7 +84,6 @@ Loop.GetMessage = function(sock) {
 	return ret;
 };
 
-// noinspection DuplicatedCode
 Loop.SendMessage = function(sock, data) {
 	if (sock.driverdata == null) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -114,7 +108,6 @@ Loop.SendMessage = function(sock, data) {
 	return 1;
 };
 
-// noinspection DuplicatedCode
 Loop.SendUnreliableMessage = function(sock, data) {
 	if (sock.driverdata == null) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -138,7 +131,6 @@ Loop.SendUnreliableMessage = function(sock, data) {
 	return 1;
 };
 
-// noinspection DuplicatedCode
 Loop.CanSendMessage = function(sock) {
 	if (sock.driverdata != null) {
 		// noinspection JSConstructorReturnsPrimitive
@@ -146,7 +138,6 @@ Loop.CanSendMessage = function(sock) {
 	}
 };
 
-// noinspection DuplicatedCode
 Loop.Close = function(sock) {
 	if (sock.driverdata != null) {
 		sock.driverdata.driverdata = null;
