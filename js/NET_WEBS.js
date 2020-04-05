@@ -1,12 +1,11 @@
 WEBS = {};
 
 WEBS.Init = function() {
-	if ((window.WebSocket == null) || (document.location.protocol === 'https:')) {
+	if (window.WebSocket == null) {
 		return;
 	}
 
 	WEBS.available = true;
-
 
 	return true;
 };
@@ -20,11 +19,11 @@ WEBS.Connect = function(host) {
 		return;
 	}
 
-	if (host.substring(0, 5) !== 'ws://') {
+	if (host.substring(0, 5) !== 'ws://' || host.substring(0, 6) !== 'wss://') {
 		return;
 	}
 
-	host = 'ws://' + host.split('/')[2];
+	host = (document.location.protocol === 'https:' ? 'wss://' : 'ws://') + host.split('/')[2];
 
 	var sock = NET.NewQSocket();
 	sock.disconnected = true;
@@ -43,7 +42,6 @@ WEBS.Connect = function(host) {
 	sock.driverdata.onmessage = WEBS.OnMessage;
 	NET.newsocket = sock;
 
-
 	return 0;
 };
 
@@ -51,34 +49,30 @@ WEBS.CheckNewConnections = function() {};
 
 WEBS.GetMessage = function(sock) {
 	if (sock.driverdata == null) {
-
 		return -1;
 	}
 
 	if (sock.driverdata.readyState !== 1) {
-
 		return -1;
 	}
 
 	if (sock.receiveMessage.length === 0) {
-
 		return 0;
 	}
 
 	var message = sock.receiveMessage.shift();
 	NET.message.cursize = message.length - 1;
 	(new Uint8Array(NET.message.data)).set(message.subarray(1));
+
 	return message[0];
 };
 
 WEBS.SendMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-
 		return -1;
 	}
 
 	if (sock.driverdata.readyState !== 1) {
-
 		return -1;
 	}
 
@@ -87,18 +81,15 @@ WEBS.SendMessage = function(sock, data) {
 	dest.set(new Uint8Array(data.data, 0, data.cursize), 1);
 	sock.driverdata.send(buf);
 
-
 	return 1;
 };
 
 WEBS.SendUnreliableMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-
 		return -1;
 	}
 
 	if (sock.driverdata.readyState !== 1) {
-
 		return -1;
 	}
 
@@ -106,7 +97,6 @@ WEBS.SendUnreliableMessage = function(sock, data) {
 	dest[0] = 2;
 	dest.set(new Uint8Array(data.data, 0, data.cursize), 1);
 	sock.driverdata.send(buf);
-
 
 	return 1;
 };
@@ -117,7 +107,6 @@ WEBS.CanSendMessage = function(sock) {
 	}
 
 	if (sock.driverdata.readyState === 1) {
-
 		return true;
 	}
 };
@@ -130,12 +119,10 @@ WEBS.Close = function(sock) {
 
 WEBS.CheckForResend = function() {
 	if (NET.newsocket.driverdata.readyState === 1) {
-
 		return 1;
 	}
 
 	if (NET.newsocket.driverdata.readyState !== 0) {
-
 		return -1;
 	}
 };

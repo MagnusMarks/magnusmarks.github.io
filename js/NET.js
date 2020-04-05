@@ -2,7 +2,10 @@ NET = {};
 
 NET.activeSockets = [];
 
-NET.message = {data: new ArrayBuffer(8192), cursize: 0};
+NET.message = {
+	data: new ArrayBuffer(8192),
+	cursize: 0
+};
 
 NET.activeconnections = 0;
 
@@ -30,6 +33,7 @@ NET.Connect = function(host) {
 
 	if (host === 'local') {
 		NET.driverlevel = 0;
+
 		return Loop.Connect(host);
 	}
 
@@ -49,6 +53,7 @@ NET.Connect = function(host) {
 			Con.Print('trying...\n');
 			NET.start_time = NET.time;
 			NET.reps = 0;
+
 			throw 'NET.Connect';
 		}
 
@@ -110,7 +115,6 @@ NET.CheckNewConnections = function() {
 };
 
 NET.Close = function(sock) {
-
 	if (sock == null) {
 		return;
 	}
@@ -126,7 +130,6 @@ NET.Close = function(sock) {
 
 NET.GetMessage = function(sock) {
 	if (sock == null) {
-
 		return -1;
 	}
 
@@ -151,32 +154,27 @@ NET.GetMessage = function(sock) {
 		}
 	}
 
-
 	return ret;
 };
 
 NET.SendMessage = function(sock, data) {
 	if (sock == null) {
-
 		return -1;
 	}
 
 	if (sock.disconnected === true) {
 		Con.Print('NET.SendMessage: disconnected socket\n');
 
-
 		return -1;
 	}
 
 	NET.time = Sys.FloatTime();
-
 
 	return NET.drivers[sock.driver].SendMessage(sock, data);
 };
 
 NET.SendUnreliableMessage = function(sock, data) {
 	if (sock == null) {
-
 		return -1;
 	}
 
@@ -187,7 +185,6 @@ NET.SendUnreliableMessage = function(sock, data) {
 	}
 
 	NET.time = Sys.FloatTime();
-
 
 	return NET.drivers[sock.driver].SendUnreliableMessage(sock, data);
 };
@@ -257,16 +254,15 @@ NET.SendToAll = function(data) {
 				} else {
 					NET.GetMessage(Host.client.netconnection);
 				}
+
 				++count;
 			}
 		}
 
 		if ((Sys.FloatTime() - start) > 5.0) {
-
 			return count;
 		}
 	}
-
 
 	return count;
 };
