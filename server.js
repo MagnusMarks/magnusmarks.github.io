@@ -14,7 +14,7 @@ require('./server/Console.js');
 require('./js/CRC.js');
 require('./js/Cvar.js');
 require('./js/Def.js');
-require('./server/ED.js');
+require('./js/ED.js');
 require('./server/Host.js');
 require('./server/Mod.js');
 require('./server/MSG.js');

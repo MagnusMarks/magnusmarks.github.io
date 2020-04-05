@@ -734,7 +734,7 @@ S.LoadSound = function(s) {
 	}
 
 	if (s.cache != null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
@@ -850,6 +850,6 @@ S.LoadSound = function(s) {
 	}
 
 	s.cache = sc;
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };

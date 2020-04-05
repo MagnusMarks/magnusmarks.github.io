@@ -7,7 +7,7 @@ WEBS.Init = function() {
 
 	WEBS.available = true;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -43,7 +43,7 @@ WEBS.Connect = function(host) {
 	sock.driverdata.onmessage = WEBS.OnMessage;
 	NET.newsocket = sock;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 0;
 };
 
@@ -51,17 +51,17 @@ WEBS.CheckNewConnections = function() {};
 
 WEBS.GetMessage = function(sock) {
 	if (sock.driverdata == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.driverdata.readyState !== 1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.receiveMessage.length === 0) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0;
 	}
 
@@ -73,12 +73,12 @@ WEBS.GetMessage = function(sock) {
 
 WEBS.SendMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.driverdata.readyState !== 1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -87,18 +87,18 @@ WEBS.SendMessage = function(sock, data) {
 	dest.set(new Uint8Array(data.data, 0, data.cursize), 1);
 	sock.driverdata.send(buf);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 1;
 };
 
 WEBS.SendUnreliableMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.driverdata.readyState !== 1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -107,7 +107,7 @@ WEBS.SendUnreliableMessage = function(sock, data) {
 	dest.set(new Uint8Array(data.data, 0, data.cursize), 1);
 	sock.driverdata.send(buf);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 1;
 };
 
@@ -117,7 +117,7 @@ WEBS.CanSendMessage = function(sock) {
 	}
 
 	if (sock.driverdata.readyState === 1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 };
@@ -130,12 +130,12 @@ WEBS.Close = function(sock) {
 
 WEBS.CheckForResend = function() {
 	if (NET.newsocket.driverdata.readyState === 1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 1;
 	}
 
 	if (NET.newsocket.driverdata.readyState !== 0) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 };

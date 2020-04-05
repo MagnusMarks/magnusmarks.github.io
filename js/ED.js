@@ -101,7 +101,6 @@ ED.FindFunction = function(name) {
 
 	for (i = 0; i < PR.functions.length; ++i) {
 		if (PR.GetString(PR.functions[i].name) === name) {
-			// noinspection JSConstructorReturnsPrimitive
 			return i;
 		}
 	}
@@ -115,7 +114,6 @@ ED.Print = function(ed) {
 
 	Con.Print('\nEDICT ' + ed.num + ':\n');
 	var i, d, name, v;
-
 
 	for (i = 1; i < PR.fielddefs.length; ++i) {
 		d = PR.fielddefs[i];
@@ -212,7 +210,6 @@ ED.Count = function() {
 ED.ParseGlobals = function(data) {
 	var keyname, key;
 
-
 	for (; ;) {
 		data = COM.Parse(data);
 
@@ -275,22 +272,22 @@ ED.ParseEpair = function(base, key, s) {
 	switch (key.type & 0x7fff) {
 		case PR.etype.ev_string:
 			d_int[key.ofs] = ED.NewString(s);
-			// noinspection JSConstructorReturnsPrimitive
+
 			return true;
 		case PR.etype.ev_float:
 			d_float[key.ofs] = Q.atof(s);
-			// noinspection JSConstructorReturnsPrimitive
+
 			return true;
 		case PR.etype.ev_vector:
 			v = s.split(' ');
 			d_float[key.ofs] = Q.atof(v[0]);
 			d_float[key.ofs + 1] = Q.atof(v[1]);
 			d_float[key.ofs + 2] = Q.atof(v[2]);
-			// noinspection JSConstructorReturnsPrimitive
+
 			return true;
 		case PR.etype.ev_entity:
 			d_int[key.ofs] = Q.atoi(s);
-			// noinspection JSConstructorReturnsPrimitive
+
 			return true;
 		case PR.etype.ev_field:
 			d = ED.FindField(s);
@@ -301,7 +298,7 @@ ED.ParseEpair = function(base, key, s) {
 			}
 
 			d_int[key.ofs] = d.ofs;
-			// noinspection JSConstructorReturnsPrimitive
+
 			return true;
 		case PR.etype.ev_function:
 			d = ED.FindFunction(s);
@@ -314,7 +311,7 @@ ED.ParseEpair = function(base, key, s) {
 			d_int[key.ofs] = d;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -326,7 +323,6 @@ ED.ParseEdict = function(data, ent) {
 			ent.v_int[i] = 0;
 		}
 	}
-
 
 	for (; ;) {
 		data = COM.Parse(data);
@@ -344,6 +340,7 @@ ED.ParseEdict = function(data, ent) {
 			anglehack = true;
 		} else {
 			anglehack = false;
+
 			if (COM.token === 'light') {
 				COM.token = 'light_lev';
 			}
@@ -392,14 +389,13 @@ ED.ParseEdict = function(data, ent) {
 		ent.free = true;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return data;
 };
 
 ED.LoadFromFile = function(data) {
 	var ent = null, spawnflags, inhibit = 0, func;
 	PR.globals_float[PR.globalvars.time] = SV.server.time;
-
 
 	for (; ;) {
 		data = COM.Parse(data);

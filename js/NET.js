@@ -126,13 +126,13 @@ NET.Close = function(sock) {
 
 NET.GetMessage = function(sock) {
 	if (sock == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.disconnected === true) {
 		Con.Print('NET.GetMessage: disconnected socket\n');
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -143,7 +143,7 @@ NET.GetMessage = function(sock) {
 		if (ret === 0) {
 			if ((NET.time - sock.lastMessageTime) > NET.messagetimeout.value) {
 				NET.Close(sock);
-				// noinspection JSConstructorReturnsPrimitive
+
 				return -1;
 			}
 		} else if (ret > 0) {
@@ -151,44 +151,44 @@ NET.GetMessage = function(sock) {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return ret;
 };
 
 NET.SendMessage = function(sock, data) {
 	if (sock == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.disconnected === true) {
 		Con.Print('NET.SendMessage: disconnected socket\n');
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	NET.time = Sys.FloatTime();
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return NET.drivers[sock.driver].SendMessage(sock, data);
 };
 
 NET.SendUnreliableMessage = function(sock, data) {
 	if (sock == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	if (sock.disconnected === true) {
 		Con.Print('NET.SendUnreliableMessage: disconnected socket\n');
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
 	NET.time = Sys.FloatTime();
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return NET.drivers[sock.driver].SendUnreliableMessage(sock, data);
 };
 
@@ -262,12 +262,12 @@ NET.SendToAll = function(data) {
 		}
 
 		if ((Sys.FloatTime() - start) > 5.0) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return count;
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return count;
 };
 

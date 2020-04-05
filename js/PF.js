@@ -7,7 +7,7 @@ PF.VarString = function(first) {
 		out += PR.GetString(PR.globals_int[4 + i * 3]);
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return out;
 };
 

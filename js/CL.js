@@ -64,7 +64,7 @@ CL.GetMessage = function() {
 		if (CL.cls.signon === 4) {
 			if (CL.cls.timedemo === true) {
 				if (Host.framecount === CL.cls.td_lastframe) {
-					// noinspection JSConstructorReturnsPrimitive
+
 					return 0;
 				}
 
@@ -74,7 +74,7 @@ CL.GetMessage = function() {
 					CL.cls.td_starttime = Host.realtime;
 				}
 			} else if (CL.state.time <= CL.state.mtime[0]) {
-				// noinspection JSConstructorReturnsPrimitive
+
 				return 0;
 			}
 		}
@@ -82,7 +82,7 @@ CL.GetMessage = function() {
 		if ((CL.cls.demoofs + 16) >= CL.cls.demosize) {
 			CL.StopPlayback();
 
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 0;
 		}
 
@@ -100,7 +100,7 @@ CL.GetMessage = function() {
 		if ((CL.cls.demoofs + NET.message.cursize) > CL.cls.demosize) {
 			CL.StopPlayback();
 
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 0;
 		}
 
@@ -114,7 +114,7 @@ CL.GetMessage = function() {
 
 		CL.cls.demoofs += NET.message.cursize;
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 1;
 	}
 
@@ -124,7 +124,7 @@ CL.GetMessage = function() {
 		r = NET.GetMessage(CL.cls.netcon);
 
 		if ((r !== 1) && (r !== 2)) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return r;
 		}
 
@@ -139,7 +139,7 @@ CL.GetMessage = function() {
 		CL.WriteDemoMessage();
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return r;
 };
 
@@ -439,20 +439,20 @@ CL.KeyState = function(key) {
 
 	if ((key.state & 2) !== 0) {
 		if ((key.state & 4) !== 0) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return (down !== 0) ? 0.75 : 0.25;
 		}
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return (down !== 0) ? 0.5 : 0.0;
 	}
 
 	if ((key.state & 4) !== 0) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0.0;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return (down !== 0) ? 1.0 : 0.0;
 };
 
@@ -981,7 +981,7 @@ CL.LerpPoint = function() {
 	if ((f === 0.0) || (CL.nolerp.value !== 0) || (CL.cls.timedemo === true) || (SV.server.active === true)) {
 		CL.state.time = CL.state.mtime[0];
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 1.0;
 	}
 
@@ -997,7 +997,7 @@ CL.LerpPoint = function() {
 			CL.state.time = CL.state.mtime[1];
 		}
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0.0;
 	}
 
@@ -1006,11 +1006,11 @@ CL.LerpPoint = function() {
 			CL.state.time = CL.state.mtime[0];
 		}
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 1.0;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return frac;
 };
 

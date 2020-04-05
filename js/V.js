@@ -10,17 +10,17 @@ V.CalcRoll = function(angles, velocity) {
 	side = Math.abs(side);
 
 	if (side < V.rollspeed.value) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return side * sign * V.rollangle.value / V.rollspeed.value;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return V.rollangle.value * sign;
 };
 
 V.CalcBob = function() {
 	if ((V.bobcycle.value <= 0.0) || (V.bobcycle.value >= 1.0) || (V.bobup.value <= 0.0) || (V.bobup.value >= 1.0) || (V.bob.value === 0.0)) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0.0;
 	}
 
@@ -41,7 +41,7 @@ V.CalcBob = function() {
 		bob = -7.0;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return bob;
 };
 

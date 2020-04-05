@@ -276,7 +276,7 @@ Key.Message = function(key) {
 
 Key.StringToKeynum = function(str) {
 	if (str.length === 1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return str.charCodeAt(0);
 	}
 
@@ -292,7 +292,7 @@ Key.StringToKeynum = function(str) {
 
 Key.KeynumToString = function(keynum) {
 	if ((keynum > 32) && (keynum < 127)) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return String.fromCharCode(keynum);
 	}
 
@@ -304,7 +304,7 @@ Key.KeynumToString = function(keynum) {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return '<UNKNOWN KEYNUM>';
 };
 
@@ -362,7 +362,7 @@ Key.WriteBindings = function() {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return f.join('');
 };
 

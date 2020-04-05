@@ -193,7 +193,7 @@ Sys.Error = function(text) {
 };
 
 Sys.FloatTime = function() {
-	// noinspection JSConstructorReturnsPrimitive
+
 	return Date.now() * 0.001 - Sys.oldtime;
 };
 

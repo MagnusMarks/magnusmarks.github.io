@@ -278,6 +278,6 @@ Draw.PicToDataURL = function(pic) {
 	data.data.set(new Uint8Array(trans));
 	ctx.putImageData(data, 0, 0);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return canvas.toDataURL();
 };

@@ -117,12 +117,12 @@ COM.CheckParm = function(parm) {
 		console.log('COM.argv[i] === parm');
 		console.log(COM.argv[i] === parm);
 		if (COM.argv[i] === parm) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return i;
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return null;
 };
 
@@ -280,7 +280,7 @@ COM.WriteFile = function(filename, data, len) {
 
 	Sys.Print('COM.WriteFile: ' + filename + '\n');
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -298,7 +298,7 @@ COM.WriteTextFile = function(filename, data) {
 
 	Sys.Print('COM.WriteTextFile: ' + filename + '\n');
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -397,7 +397,7 @@ COM.LoadTextFile = function(filename) {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return f.join('');
 };
 

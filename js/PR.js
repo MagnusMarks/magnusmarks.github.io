@@ -264,40 +264,40 @@ PR.ValueString = function(type, val, ofs) {
 
 	switch (type) {
 		case PR.etype.ev_string:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return PR.GetString(val_int[ofs]);
 		case PR.etype.ev_entity:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 'entity ' + val_int[ofs];
 		case PR.etype.ev_function:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return PR.GetString(PR.functions[val_int[ofs]].name) + '()';
 		case PR.etype.ev_field:
 			var def = ED.FieldAtOfs(val_int[ofs]);
 			if (def != null) {
-				// noinspection JSConstructorReturnsPrimitive
+
 				return '.' + PR.GetString(def.name);
 			}
 
-			// noinspection JSConstructorReturnsPrimitive
+
 			return '.';
 		case PR.etype.ev_void:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 'void';
 		case PR.etype.ev_float:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return val_float[ofs].toFixed(1);
 		case PR.etype.ev_vector:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return '\'' + val_float[ofs].toFixed(1) +
 				' ' + val_float[ofs + 1].toFixed(1) +
 				' ' + val_float[ofs + 2].toFixed(1) + '\'';
 		case PR.etype.ev_pointer:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 'pointer';
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 'bad type ' + type;
 };
 
@@ -308,35 +308,35 @@ PR.UglyValueString = function(type, val, ofs) {
 
 	switch (type) {
 		case PR.etype.ev_string:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return PR.GetString(val_int[ofs]);
 		case PR.etype.ev_entity:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return val_int[ofs].toString();
 		case PR.etype.ev_function:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return PR.GetString(PR.functions[val_int[ofs]].name);
 		case PR.etype.ev_field:
 			var def = ED.FieldAtOfs(val_int[ofs]);
 			if (def != null) {
-				// noinspection JSConstructorReturnsPrimitive
+
 				return PR.GetString(def.name);
 			}
-			// noinspection JSConstructorReturnsPrimitive
+
 			return '';
 		case PR.etype.ev_void:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 'void';
 		case PR.etype.ev_float:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return val_float[ofs].toFixed(6);
 		case PR.etype.ev_vector:
-			// noinspection JSConstructorReturnsPrimitive
+
 			return val_float[ofs].toFixed(6) +
 				' ' + val_float[ofs + 1].toFixed(6) +
 				' ' + val_float[ofs + 2].toFixed(6);
 	}
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 'bad type ' + type;
 };
 
@@ -352,7 +352,7 @@ PR.GlobalString = function(ofs) {
 	for (; line.length <= 20;) {
 		line += ' ';
 	}
-	// noinspection JSConstructorReturnsPrimitive
+
 	return line;
 };
 
@@ -369,7 +369,7 @@ PR.GlobalStringNoContents = function(ofs) {
 		line += ' ';
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return line;
 };
 
@@ -694,7 +694,7 @@ PR.EnterFunction = function(f) {
 
 	PR.xfunction = f;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return f.first_statement - 1;
 };
 
@@ -977,7 +977,7 @@ PR.GetString = function(num) {
 		string[string.length] = String.fromCharCode(PR.strings[num]);
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return string.join('');
 };
 
@@ -991,7 +991,7 @@ PR.NewString = function(s, length) {
 		}
 
 		PR.strings[PR.strings.length] = 0;
-		// noinspection JSConstructorReturnsPrimitive
+
 		return ofs;
 	}
 
@@ -1005,7 +1005,7 @@ PR.NewString = function(s, length) {
 		PR.strings[PR.strings.length] = 0;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return ofs;
 };
 

@@ -62,23 +62,23 @@ Vec.RotatePointAroundVector = function(dir, point, degrees) {
 };
 
 Vec.Anglemod = function(a) {
-	// noinspection JSConstructorReturnsPrimitive
+
 	return (a % 360.0 + 360.0) % 360.0;
 };
 
 Vec.BoxOnPlaneSide = function(emins, emaxs, p) {
 	if (p.type <= 2) {
 		if (p.dist <= emins[p.type]) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 1;
 		}
 
 		if (p.dist >= emaxs[p.type]) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 2;
 		}
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 3;
 	}
 
@@ -131,7 +131,7 @@ Vec.BoxOnPlaneSide = function(emins, emaxs, p) {
 		sides += 2;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return sides;
 };
 
@@ -168,7 +168,7 @@ Vec.AngleVectors = function(angles, forward, right, up) {
 };
 
 Vec.DotProduct = function(v1, v2) {
-	// noinspection JSConstructorReturnsPrimitive
+
 	return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2];
 };
 
@@ -188,7 +188,7 @@ Vec.CrossProduct = function(v1, v2) {
 };
 
 Vec.Length = function(v) {
-	// noinspection JSConstructorReturnsPrimitive
+
 	return Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 };
 
@@ -198,7 +198,7 @@ Vec.Normalize = function(v) {
 	if (length === 0.0) {
 		v[0] = v[1] = v[2] = 0.0;
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0.0;
 	}
 
@@ -206,7 +206,7 @@ Vec.Normalize = function(v) {
 	v[1] /= length;
 	v[2] /= length;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return length;
 };
 

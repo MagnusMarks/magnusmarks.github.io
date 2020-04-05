@@ -659,7 +659,7 @@ SV.SendClientDatagram = function() {
 		return;
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -754,12 +754,12 @@ SV.SendClientMessages = function() {
 
 SV.ModelIndex = function(name) {
 	if (name == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0;
 	}
 
 	if (name.length === 0) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0;
 	}
 
@@ -767,7 +767,7 @@ SV.ModelIndex = function(name) {
 
 	for (i = 0; i < SV.server.model_precache.length; ++i) {
 		if (SV.server.model_precache[i] === name) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return i;
 		}
 	}
@@ -963,7 +963,7 @@ SV.SpawnServer = function(server) {
 };
 
 SV.GetClientName = function(client) {
-	// noinspection JSConstructorReturnsPrimitive
+
 	return PR.GetString(PR.netnames + (client.num << 5));
 };
 
@@ -1009,7 +1009,7 @@ SV.CheckBottom = function(ent) {
 		}
 
 		// FIXME: is this a bug? should not return early
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
@@ -1039,7 +1039,7 @@ SV.CheckBottom = function(ent) {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -1150,7 +1150,7 @@ SV.StepDirection = function(ent, yaw, dist) {
 
 		SV.LinkEdict(ent, true);
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
@@ -1235,7 +1235,7 @@ SV.CloseEnough = function(ent, goal, dist) {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -1292,7 +1292,7 @@ SV.RunThink = function(ent) {
 	var thinktime = ent.v_float[PR.entvars.nextthink];
 
 	if ((thinktime <= 0.0) || (thinktime > (SV.server.time + Host.frametime))) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
@@ -1306,7 +1306,7 @@ SV.RunThink = function(ent) {
 	PR.globals_int[PR.globalvars.other] = 0;
 	PR.ExecuteProgram(ent.v_int[PR.entvars.think]);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return (ent.free !== true);
 };
 
@@ -1378,7 +1378,7 @@ SV.FlyMove = function(ent, time) {
 		if (trace.allsolid === true) {
 			ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
 
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 3;
 		}
 		if (trace.fraction > 0.0) {
@@ -1409,7 +1409,7 @@ SV.FlyMove = function(ent, time) {
 		time_left -= time_left * trace.fraction;
 		if (numplanes >= 5) {
 			ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 3;
 		}
 		planes[numplanes++] = [trace.plane.normal[0], trace.plane.normal[1], trace.plane.normal[2]];
@@ -1432,7 +1432,7 @@ SV.FlyMove = function(ent, time) {
 		} else {
 			if (numplanes !== 2) {
 				ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
-				// noinspection JSConstructorReturnsPrimitive
+
 				return 7;
 			}
 			dir = Vec.CrossProduct(planes[0], planes[1]);
@@ -1447,11 +1447,11 @@ SV.FlyMove = function(ent, time) {
 			ent.v_float[PR.entvars.velocity1] * primal_velocity[1] +
 			ent.v_float[PR.entvars.velocity2] * primal_velocity[2]) <= 0.0) {
 			ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
-			// noinspection JSConstructorReturnsPrimitive
+
 			return blocked;
 		}
 	}
-	// noinspection JSConstructorReturnsPrimitive
+
 	return blocked;
 };
 
@@ -1680,7 +1680,7 @@ SV.CheckWater = function(ent) {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return ent.v_float[PR.entvars.waterlevel] > 1.0;
 };
 
@@ -1752,7 +1752,7 @@ SV.TryUnstick = function(ent, oldvel) {
 
 	ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 7;
 };
 
@@ -2259,7 +2259,7 @@ SV.ReadClientMessage = function() {
 		}
 
 		if (ret === 0) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return true;
 		}
 
@@ -2596,7 +2596,7 @@ SV.PointContents = function(p) {
 	var cont = SV.HullPointContents(SV.server.worldmodel.hulls[0], 0, p);
 
 	if ((cont <= Mod.contents.current_0) && (cont >= Mod.contents.current_down)) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return Mod.contents.water;
 	}
 
@@ -2605,7 +2605,7 @@ SV.PointContents = function(p) {
 
 SV.TestEntityPosition = function(ent) {
 	var origin = ED.Vector(ent, PR.entvars.origin);
-	// noinspection JSConstructorReturnsPrimitive
+
 	return SV.Move(origin, ED.Vector(ent, PR.entvars.mins), ED.Vector(ent, PR.entvars.maxs), origin, 0, ent).startsolid;
 };
 
@@ -2623,7 +2623,7 @@ SV.RecursiveHullCheck = function(hull, num, p1f, p2f, p1, p2, trace) {
 			trace.startsolid = true;
 		}
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 

@@ -103,13 +103,13 @@ Cvar.Command = function() {
 	if (Cmd.argv.length <= 1) {
 		Con.Print('"' + v.name + '" is "' + v.string + '"\n');
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
 	Cvar.Set(v.name, Cmd.argv[1]);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -126,6 +126,6 @@ Cvar.WriteVariables = function() {
 		}
 	}
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return f.join('');
 };

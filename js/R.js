@@ -192,7 +192,7 @@ R.PushDlights = function() {
 
 R.RecursiveLightPoint = function(node, start, end) {
 	if (node.contents < 0) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -218,7 +218,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 	}
 
 	if ((back < 0) === side) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -245,7 +245,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 		}
 
 		if (surf.lightofs === 0) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 0;
 		}
 
@@ -254,7 +254,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 
 		lightmap = surf.lightofs;
 		if (lightmap === 0) {
-			// noinspection JSConstructorReturnsPrimitive
+
 			return 0;
 		}
 
@@ -266,7 +266,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 			lightmap += size;
 		}
 
-		// noinspection JSConstructorReturnsPrimitive
+
 		return r >> 8;
 	}
 	return R.RecursiveLightPoint(node.children[side !== true ? 1 : 0], mid, end);
@@ -274,7 +274,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 
 R.LightPoint = function(p) {
 	if (CL.state.worldmodel.lightdata == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 255;
 	}
 
@@ -282,7 +282,7 @@ R.LightPoint = function(p) {
 	var r = R.RecursiveLightPoint(CL.state.worldmodel.nodes[0], p, [p[0], p[1], p[2] - 2048.0]);
 
 	if (r === -1) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0;
 	}
 
@@ -309,22 +309,22 @@ R.refdef = {
 
 R.CullBox = function(mins, maxs) {
 	if (Vec.BoxOnPlaneSide(mins, maxs, R.frustum[0]) === 2) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
 	if (Vec.BoxOnPlaneSide(mins, maxs, R.frustum[1]) === 2) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
 	if (Vec.BoxOnPlaneSide(mins, maxs, R.frustum[2]) === 2) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 
 	if (Vec.BoxOnPlaneSide(mins, maxs, R.frustum[3]) === 2) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return true;
 	}
 };

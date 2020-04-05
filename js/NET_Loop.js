@@ -1,7 +1,7 @@
 Loop = {};
 
 Loop.Init = function() {
-	// noinspection JSConstructorReturnsPrimitive
+
 	return true;
 };
 
@@ -31,7 +31,7 @@ Loop.Connect = function(host) {
 	Loop.client.driverdata = Loop.server;
 	Loop.server.driverdata = Loop.client;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return Loop.client;
 };
 
@@ -46,13 +46,13 @@ Loop.CheckNewConnections = function() {
 	Loop.client.receiveMessageLength = 0;
 	Loop.client.canSend = true;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return Loop.server;
 };
 
 Loop.GetMessage = function(sock) {
 	if (sock.receiveMessageLength === 0) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return 0;
 	}
 
@@ -86,7 +86,7 @@ Loop.GetMessage = function(sock) {
 
 Loop.SendMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -104,13 +104,13 @@ Loop.SendMessage = function(sock, data) {
 	buffer.set(new Uint8Array(data.data, 0, data.cursize), bufferLength + 3);
 	sock.canSend = false;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 1;
 };
 
 Loop.SendUnreliableMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return -1;
 	}
 
@@ -127,13 +127,13 @@ Loop.SendUnreliableMessage = function(sock, data) {
 	buffer[bufferLength + 2] = data.cursize >> 8;
 	buffer.set(new Uint8Array(data.data, 0, data.cursize), bufferLength + 3);
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return 1;
 };
 
 Loop.CanSendMessage = function(sock) {
 	if (sock.driverdata != null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return sock.canSend;
 	}
 };

@@ -588,7 +588,7 @@ Host.SavegameComment = function() {
 	}
 	text += kills;
 
-	// noinspection JSConstructorReturnsPrimitive
+
 	return text + '____';
 };
 

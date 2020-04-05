@@ -385,7 +385,7 @@ GL.UseProgram = function(identifier, flushStream) {
 	}
 
 	if (program == null) {
-		// noinspection JSConstructorReturnsPrimitive
+
 		return null;
 	}
 
