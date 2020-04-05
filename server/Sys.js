@@ -37,7 +37,7 @@ Sys.ConsoleInput = function() {
 Sys.main = function() {
 	COM.InitArgv(process.argv.slice(1));
 	Sys.oldtime = process.hrtime();
-	Sys.Print('Host.Init\n');
+	//Sys.Print('Host.Init\n');
 	Host.Init();
 	process.stdin.resume();
 	process.stdin.on('data', Sys.StdinOnData);

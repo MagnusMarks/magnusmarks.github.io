@@ -63,6 +63,7 @@ Datagram.Listen = function() {
 
 	try {
 		controlsocket.bind(NET.hostport);
+		Con.Print('Listening to UDP: ' + Datagram.myAddr + ':' + NET.hostport + '\n');
 	} catch (e) {
 		Con.Print('Unable to bind to ' + Datagram.myAddr + ':' + NET.hostport + '\n');
 		controlsocket.close();

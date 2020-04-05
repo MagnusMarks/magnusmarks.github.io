@@ -1,3 +1,4 @@
+// noinspection JSValidateTypes
 Node = {
 	dgram: require('dgram'),
 	fs: require('fs'),

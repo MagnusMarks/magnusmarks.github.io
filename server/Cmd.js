@@ -236,6 +236,6 @@ Cmd.ExecuteString = function(text, client) {
 	}
 
 	if (Cvar.Command() !== true) {
-		Con.Print('Unknown command "' + name + '"\n');
+		//Con.Print('Unknown command "' + name + '"\n');
 	}
 };

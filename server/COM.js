@@ -194,7 +194,7 @@ COM.LoadFile = function(filename) {
 					break;
 				}
 
-				Sys.Print('PackFile: ' + search.filename + '/pak' + j + '.zip : ' + filename + '\n')
+				//Sys.Print('PackFile: ' + search.filename + '/pak' + j + '.zip : ' + filename + '\n')
 				src = Buffer.alloc(file.filelen);
 				Node.fs.readSync(fd, src, 0, file.filelen, file.filepos);
 				Node.fs.closeSync(fd);
@@ -209,13 +209,13 @@ COM.LoadFile = function(filename) {
 
 		try {
 			src = Node.fs.readFileSync(search.filename + '/' + filename);
-			Sys.Print('FindFile: ' + search.filename + '/' + filename + '\n');
+			//Sys.Print('FindFile: ' + search.filename + '/' + filename + '\n');
 			break;
 		} catch (e) {}
 	}
 
 	if (src == null) {
-		Sys.Print('FindFile: can\'t find ' + filename + '\n');
+		//Sys.Print('FindFile: can\'t find ' + filename + '\n');
 
 		return;
 	}
