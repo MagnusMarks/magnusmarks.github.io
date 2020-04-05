@@ -24,6 +24,7 @@ MSG.WriteString = function(sb, s) {
 	if (s != null) {
 		SZ.Write(sb, new Uint8Array(Q.strmem(s)), s.length);
 	}
+
 	MSG.WriteChar(sb, 0);
 };
 
@@ -44,12 +45,11 @@ MSG.ReadChar = function() {
 	if (MSG.readcount >= NET.message.cursize) {
 		MSG.badread = true;
 
-
 		return -1;
 	}
+
 	var c = (new Int8Array(NET.message.data, MSG.readcount, 1))[0];
 	++MSG.readcount;
-
 
 	return c;
 };
@@ -58,13 +58,11 @@ MSG.ReadByte = function() {
 	if (MSG.readcount >= NET.message.cursize) {
 		MSG.badread = true;
 
-
 		return -1;
 	}
 
 	var c = (new Uint8Array(NET.message.data, MSG.readcount, 1))[0];
 	++MSG.readcount;
-
 
 	return c;
 };
@@ -73,13 +71,11 @@ MSG.ReadShort = function() {
 	if ((MSG.readcount + 2) > NET.message.cursize) {
 		MSG.badread = true;
 
-
 		return -1;
 	}
 
 	var c = (new DataView(NET.message.data)).getInt16(MSG.readcount, true);
 	MSG.readcount += 2;
-
 
 	return c;
 };
@@ -88,13 +84,11 @@ MSG.ReadLong = function() {
 	if ((MSG.readcount + 4) > NET.message.cursize) {
 		MSG.badread = true;
 
-
 		return -1;
 	}
 
 	var c = (new DataView(NET.message.data)).getInt32(MSG.readcount, true);
 	MSG.readcount += 4;
-
 
 	return c;
 };
@@ -103,13 +97,11 @@ MSG.ReadFloat = function() {
 	if ((MSG.readcount + 4) > NET.message.cursize) {
 		MSG.badread = true;
 
-
 		return -1;
 	}
 
 	var f = (new DataView(NET.message.data)).getFloat32(MSG.readcount, true);
 	MSG.readcount += 4;
-
 
 	return f;
 };
@@ -127,16 +119,13 @@ MSG.ReadString = function() {
 		string[l] = String.fromCharCode(c);
 	}
 
-
 	return string.join('');
 };
 
 MSG.ReadCoord = function() {
-
 	return MSG.ReadShort() * 0.125;
 };
 
 MSG.ReadAngle = function() {
-
 	return MSG.ReadChar() * 1.40625;
 };

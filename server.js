@@ -17,7 +17,7 @@ require('./js/Def.js');
 require('./js/ED.js');
 require('./server/Host.js');
 require('./server/Mod.js');
-require('./server/MSG.js');
+require('./js/MSG.js');
 require('./server/NET.js');
 require('./server/NET_Datagram.js');
 require('./server/NET_WEBS.js');
