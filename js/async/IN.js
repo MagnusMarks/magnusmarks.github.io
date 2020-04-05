@@ -134,7 +134,7 @@ IN.onclick = () => {
 	}
 
 	// noinspection JSUnresolvedVariable, DuplicatedCode
-	if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
+	/*if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
 		if (VID.container.requestFullscreen) {
 			VID.container.requestFullscreen();
 		} else {
@@ -153,7 +153,7 @@ IN.onclick = () => {
 				}
 			}
 		}
-	}
+	}*/
 };
 
 // noinspection DuplicatedCode
