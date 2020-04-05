@@ -21,7 +21,7 @@ require('./js/MSG.js');
 require('./server/NET.js');
 require('./server/NET_Datagram.js');
 require('./server/NET_WEBS.js');
-require('./server/PF.js');
+require('./js/PF.js');
 require('./server/PR.js');
 require('./server/Protocol.js');
 require('./server/Q.js');
