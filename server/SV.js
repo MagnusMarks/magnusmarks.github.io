@@ -239,7 +239,6 @@ SV.ConnectClient = function(clientnum) {
 	client.colors = 0;
 
 	client.ping_times = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-
 	client.num_pings = 0;
 	client.spawn_parms = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 	client.old_frags = 0;
@@ -490,14 +489,13 @@ SV.WriteClientdataToMessage = function(ent, msg) {
 		MSG.WriteAngle(msg, ent.v_float[PR.entvars.angles1]);
 		MSG.WriteAngle(msg, ent.v_float[PR.entvars.angles2]);
 		ent.v_float[PR.entvars.fixangle] = 0.0;
-	};
+	}
 
 	var bits = Protocol.su.items + Protocol.su.weapon;
 
 	if (ent.v_float[PR.entvars.view_ofs2] !== Protocol.default_viewheight) {
 		bits += Protocol.su.viewheight;
 	}
-
 
 	if (ent.v_float[PR.entvars.idealpitch] !== 0.0) {
 		bits += Protocol.su.idealpitch;
@@ -1538,7 +1536,7 @@ SV.PushEntity = function(ent, push) {
 	if (ent.v_float[PR.entvars.movetype] === SV.movetype.flymissile) {
 		nomonsters = SV.move.missile;
 	} else if ((solid === SV.solid.trigger) || (solid === SV.solid.not)) {
-		nomonsters = SV.move.nomonsters
+		nomonsters = SV.move.nomonsters;
 	} else {
 		nomonsters = SV.move.normal;
 	}

@@ -24,7 +24,7 @@ require('./server/NET_WEBS.js');
 require('./js/PF.js');
 require('./js/PR.js');
 require('./js/Protocol.js');
-require('./server/Q.js');
+require('./js/Q.js');
 require('./server/SV.js');
 require('./server/Sys.js');
 require('./server/SZ.js');

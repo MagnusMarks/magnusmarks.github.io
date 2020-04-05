@@ -53,7 +53,7 @@ S.Init = function() {
 		}
 
 		if (S.context != null) {
-			// noinspection JSUnresolvedFunction
+
 			nodes = {
 				source: S.context.createBufferSource(),
 				gain: S.context.createGainNode()
@@ -77,7 +77,7 @@ S.NoteOff = function(node) {
 	// noinspection JSUnresolvedVariable
 	if ((node.playbackState === 1) || (node.playbackState === 2)) {
 		try {
-			// noinspection JSUnresolvedFunction
+
 			node.noteOff(0.0);
 		} catch (e) {}
 	}
@@ -87,7 +87,7 @@ S.NoteOn = function(node) {
 	// noinspection JSUnresolvedVariable
 	if ((node.playbackState === 0) || (node.playbackState === 3)) {
 		try {
-			// noinspection JSUnresolvedFunction
+
 			node.noteOn(0.0);
 		} catch (e) {}
 	}
@@ -221,7 +221,7 @@ S.StartSound = function(entnum, entchannel, sfx, origin, vol, attenuation) {
 	var volume;
 
 	if (S.context != null) {
-		// noinspection JSUnresolvedFunction
+
 		var nodes = {
 			source: S.context.createBufferSource(),
 			merger1: S.context.createChannelMerger(2),
@@ -284,7 +284,7 @@ S.StartSound = function(entnum, entchannel, sfx, origin, vol, attenuation) {
 
 			target_chan.pos += skip;
 			target_chan.end -= skip;
-			// noinspection JSUnresolvedFunction
+
 			nodes.source.noteGrainOn(0.0, skip, nodes.source.buffer.length - skip);
 			break;
 		}
@@ -391,7 +391,7 @@ S.StaticSound = function(sfx, origin, vol, attenuation) {
 	};
 	S.static_channels[S.static_channels.length] = ss;
 	if (S.context != null) {
-		// noinspection JSUnresolvedFunction
+
 		var nodes = {
 			source: S.context.createBufferSource(),
 			merger1: S.context.createChannelMerger(2),

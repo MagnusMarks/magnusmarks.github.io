@@ -63,7 +63,7 @@ Q.atoi = function(str) {
 	}
 
 	if (c === 39) {
-		// noinspection JSUnresolvedFunction
+
 		if (isNaN(c2) === true) {
 			return 0;
 		}
@@ -73,11 +73,11 @@ Q.atoi = function(str) {
 
 	for (; ;) {
 		c = str.charCodeAt(ptr++);
-		// noinspection JSUnresolvedFunction
 
 		if ((isNaN(c) === true) || (c <= 47) || (c >= 58)) {
 			return val * sign;
 		}
+
 		val = val * 10 + c - 48;
 	}
 	// noinspection UnreachableCodeJS
@@ -122,18 +122,19 @@ Q.atof = function(str) {
 	}
 
 	if (c === 39) {
-		// noinspection JSUnresolvedFunction
 		if (isNaN(c2) === true) {
 			return 0.0;
 		}
 
 		return sign * c2;
 	}
+
 	val = parseFloat(str);
-	// noinspection JSUnresolvedFunction
+
 	if (isNaN(val) === true) {
 		return 0.0;
 	}
+
 	return val;
 };
 

@@ -249,12 +249,12 @@ ED.NewString = function(string) {
 	var newstring = [], i, c;
 
 	for (i = 0; i < string.length; ++i) {
-		// noinspection JSUnresolvedFunction
+
 		c = string.charCodeAt(i);
 
 		if ((c === 92) && (i < (string.length - 1))) {
 			++i;
-			// noinspection JSUnresolvedFunction
+
 			newstring[newstring.length] = (string.charCodeAt(i) === 110) ? '\n' : '\\';
 		} else {
 			newstring[newstring.length] = String.fromCharCode(c);
