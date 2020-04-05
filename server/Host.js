@@ -16,7 +16,7 @@ Host.Error = function(error) {
 Host.FindMaxClients = function() {
 	var i = COM.CheckParm('-maxplayers');
 
-	SV.svs.maxclients = 8;
+	SV.svs.maxclients = 16;
 
 	if (i != null) {
 		++i;
@@ -25,7 +25,7 @@ Host.FindMaxClients = function() {
 			SV.svs.maxclients = Q.atoi(COM.argv[i]);
 
 			if (SV.svs.maxclients <= 0) {
-				SV.svs.maxclients = 8;
+				SV.svs.maxclients = 16;
 			} else if (SV.svs.maxclients > 16) {
 				SV.svs.maxclients = 16;
 			}
@@ -310,6 +310,7 @@ Host.Init = function() {
 	NET.Init();
 	SV.Init();
 	Cmd.text = 'exec quake.rc\n' + Cmd.text;
+	Cmd.text = 'exec server.cfg\n' + Cmd.text;
 	Sys.Print('========Quake Initialized=========\n');
 };
 
