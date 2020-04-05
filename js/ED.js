@@ -311,7 +311,6 @@ ED.ParseEpair = function(base, key, s) {
 			d_int[key.ofs] = d;
 	}
 
-
 	return true;
 };
 
@@ -388,7 +387,6 @@ ED.ParseEdict = function(data, ent) {
 	if (init !== true) {
 		ent.free = true;
 	}
-
 
 	return data;
 };

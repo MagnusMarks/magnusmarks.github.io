@@ -103,12 +103,10 @@ Cvar.Command = function() {
 	if (Cmd.argv.length <= 1) {
 		Con.Print('"' + v.name + '" is "' + v.string + '"\n');
 
-
 		return true;
 	}
 
 	Cvar.Set(v.name, Cmd.argv[1]);
-
 
 	return true;
 };
@@ -125,7 +123,6 @@ Cvar.WriteVariables = function() {
 			f[f.length] = v.name + ' "' + v.string + '"\n';
 		}
 	}
-
 
 	return f.join('');
 };

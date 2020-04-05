@@ -264,39 +264,28 @@ PR.ValueString = function(type, val, ofs) {
 
 	switch (type) {
 		case PR.etype.ev_string:
-
 			return PR.GetString(val_int[ofs]);
 		case PR.etype.ev_entity:
-
 			return 'entity ' + val_int[ofs];
 		case PR.etype.ev_function:
-
 			return PR.GetString(PR.functions[val_int[ofs]].name) + '()';
 		case PR.etype.ev_field:
 			var def = ED.FieldAtOfs(val_int[ofs]);
-			if (def != null) {
 
+			if (def != null) {
 				return '.' + PR.GetString(def.name);
 			}
 
-
 			return '.';
 		case PR.etype.ev_void:
-
 			return 'void';
 		case PR.etype.ev_float:
-
 			return val_float[ofs].toFixed(1);
 		case PR.etype.ev_vector:
-
-			return '\'' + val_float[ofs].toFixed(1) +
-				' ' + val_float[ofs + 1].toFixed(1) +
-				' ' + val_float[ofs + 2].toFixed(1) + '\'';
+			return '\'' + val_float[ofs].toFixed(1) + ' ' + val_float[ofs + 1].toFixed(1) + ' ' + val_float[ofs + 2].toFixed(1) + '\'';
 		case PR.etype.ev_pointer:
-
 			return 'pointer';
 	}
-
 
 	return 'bad type ' + type;
 };
@@ -308,33 +297,25 @@ PR.UglyValueString = function(type, val, ofs) {
 
 	switch (type) {
 		case PR.etype.ev_string:
-
 			return PR.GetString(val_int[ofs]);
 		case PR.etype.ev_entity:
-
 			return val_int[ofs].toString();
 		case PR.etype.ev_function:
-
 			return PR.GetString(PR.functions[val_int[ofs]].name);
 		case PR.etype.ev_field:
 			var def = ED.FieldAtOfs(val_int[ofs]);
-			if (def != null) {
 
+			if (def != null) {
 				return PR.GetString(def.name);
 			}
 
 			return '';
 		case PR.etype.ev_void:
-
 			return 'void';
 		case PR.etype.ev_float:
-
 			return val_float[ofs].toFixed(6);
 		case PR.etype.ev_vector:
-
-			return val_float[ofs].toFixed(6) +
-				' ' + val_float[ofs + 1].toFixed(6) +
-				' ' + val_float[ofs + 2].toFixed(6);
+			return val_float[ofs].toFixed(6) + ' ' + val_float[ofs + 1].toFixed(6) + ' ' + val_float[ofs + 2].toFixed(6);
 	}
 
 	return 'bad type ' + type;
@@ -368,7 +349,6 @@ PR.GlobalStringNoContents = function(ofs) {
 	for (; line.length <= 20;) {
 		line += ' ';
 	}
-
 
 	return line;
 };
@@ -419,6 +399,7 @@ PR.LoadProgs = function() {
 			b: view.getInt16(ofs + 4, true),
 			c: view.getInt16(ofs + 6, true)
 		};
+
 		ofs += 8;
 	}
 
@@ -445,6 +426,7 @@ PR.LoadProgs = function() {
 			ofs: view.getUint16(ofs + 2, true),
 			name: view.getUint32(ofs + 4, true)
 		};
+
 		ofs += 8;
 	}
 
@@ -468,6 +450,7 @@ PR.LoadProgs = function() {
 				view.getUint8(ofs + 34), view.getUint8(ofs + 35)
 			]
 		};
+
 		ofs += 36;
 	}
 
@@ -538,25 +521,71 @@ PR.localstack_size = 2048;
 
 PR.opnames = [
 	'DONE',
-	'MUL_F', 'MUL_V', 'MUL_FV', 'MUL_VF',
+	'MUL_F',
+	'MUL_V',
+	'MUL_FV',
+	'MUL_VF',
 	'DIV',
-	'ADD_F', 'ADD_V',
-	'SUB_F', 'SUB_V',
-	'EQ_F', 'EQ_V', 'EQ_S', 'EQ_E', 'EQ_FNC',
-	'NE_F', 'NE_V', 'NE_S', 'NE_E', 'NE_FNC',
-	'LE', 'GE', 'LT', 'GT',
-	'INDIRECT', 'INDIRECT', 'INDIRECT', 'INDIRECT', 'INDIRECT', 'INDIRECT',
+	'ADD_F',
+	'ADD_V',
+	'SUB_F',
+	'SUB_V',
+	'EQ_F',
+	'EQ_V',
+	'EQ_S',
+	'EQ_E',
+	'EQ_FNC',
+	'NE_F',
+	'NE_V',
+	'NE_S',
+	'NE_E',
+	'NE_FNC',
+	'LE',
+	'GE',
+	'LT',
+	'GT',
+	'INDIRECT',
+	'INDIRECT',
+	'INDIRECT',
+	'INDIRECT',
+	'INDIRECT',
+	'INDIRECT',
 	'ADDRESS',
-	'STORE_F', 'STORE_V', 'STORE_S', 'STORE_ENT', 'STORE_FLD', 'STORE_FNC',
-	'STOREP_F', 'STOREP_V', 'STOREP_S', 'STOREP_ENT', 'STOREP_FLD', 'STOREP_FNC',
+	'STORE_F',
+	'STORE_V',
+	'STORE_S',
+	'STORE_ENT',
+	'STORE_FLD',
+	'STORE_FNC',
+	'STOREP_F',
+	'STOREP_V',
+	'STOREP_S',
+	'STOREP_ENT',
+	'STOREP_FLD',
+	'STOREP_FNC',
 	'RETURN',
-	'NOT_F', 'NOT_V', 'NOT_S', 'NOT_ENT', 'NOT_FNC',
-	'IF', 'IFNOT',
-	'CALL0', 'CALL1', 'CALL2', 'CALL3', 'CALL4', 'CALL5', 'CALL6', 'CALL7', 'CALL8',
+	'NOT_F',
+	'NOT_V',
+	'NOT_S',
+	'NOT_ENT',
+	'NOT_FNC',
+	'IF',
+	'IFNOT',
+	'CALL0',
+	'CALL1',
+	'CALL2',
+	'CALL3',
+	'CALL4',
+	'CALL5',
+	'CALL6',
+	'CALL7',
+	'CALL8',
 	'STATE',
 	'GOTO',
-	'AND', 'OR',
-	'BITAND', 'BITOR'
+	'AND',
+	'OR',
+	'BITAND',
+	'BITOR'
 ];
 
 PR.PrintStatement = function(s) {
@@ -694,7 +723,6 @@ PR.EnterFunction = function(f) {
 
 	PR.xfunction = f;
 
-
 	return f.first_statement - 1;
 };
 
@@ -724,6 +752,7 @@ PR.ExecuteProgram = function(fnum) {
 		if (PR.globals_int[PR.globalvars.self] !== 0) {
 			ED.Print(SV.server.edicts[PR.globals_int[PR.globalvars.self]]);
 		}
+
 		Host.Error('PR.ExecuteProgram: NULL function');
 	}
 
@@ -747,7 +776,6 @@ PR.ExecuteProgram = function(fnum) {
 		if (PR.trace === true) {
 			PR.PrintStatement(st);
 		}
-
 
 		switch (st.op) {
 			case PR.op.add_f:
@@ -977,7 +1005,6 @@ PR.GetString = function(num) {
 		string[string.length] = String.fromCharCode(PR.strings[num]);
 	}
 
-
 	return string.join('');
 };
 
@@ -1004,7 +1031,6 @@ PR.NewString = function(s, length) {
 	for (i = 0; i < length; ++i) {
 		PR.strings[PR.strings.length] = 0;
 	}
-
 
 	return ofs;
 };

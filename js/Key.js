@@ -292,7 +292,6 @@ Key.StringToKeynum = function(str) {
 
 Key.KeynumToString = function(keynum) {
 	if ((keynum > 32) && (keynum < 127)) {
-
 		return String.fromCharCode(keynum);
 	}
 
@@ -303,7 +302,6 @@ Key.KeynumToString = function(keynum) {
 			return Key.names[i].name;
 		}
 	}
-
 
 	return '<UNKNOWN KEYNUM>';
 };
@@ -361,7 +359,6 @@ Key.WriteBindings = function() {
 			f[f.length] = 'bind "' + Key.KeynumToString(i) + '" "' + Key.bindings[i] + '"\n';
 		}
 	}
-
 
 	return f.join('');
 };

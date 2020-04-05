@@ -69,15 +69,12 @@ Vec.Anglemod = function(a) {
 Vec.BoxOnPlaneSide = function(emins, emaxs, p) {
 	if (p.type <= 2) {
 		if (p.dist <= emins[p.type]) {
-
 			return 1;
 		}
 
 		if (p.dist >= emaxs[p.type]) {
-
 			return 2;
 		}
-
 
 		return 3;
 	}
@@ -130,7 +127,6 @@ Vec.BoxOnPlaneSide = function(emins, emaxs, p) {
 	if (dist2 < p.dist) {
 		sides += 2;
 	}
-
 
 	return sides;
 };
@@ -198,14 +194,12 @@ Vec.Normalize = function(v) {
 	if (length === 0.0) {
 		v[0] = v[1] = v[2] = 0.0;
 
-
 		return 0.0;
 	}
 
 	v[0] /= length;
 	v[1] /= length;
 	v[2] /= length;
-
 
 	return length;
 };

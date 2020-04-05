@@ -10,10 +10,8 @@ V.CalcRoll = function(angles, velocity) {
 	side = Math.abs(side);
 
 	if (side < V.rollspeed.value) {
-
 		return side * sign * V.rollangle.value / V.rollspeed.value;
 	}
-
 
 	return V.rollangle.value * sign;
 };
@@ -40,7 +38,6 @@ V.CalcBob = function() {
 	} else if (bob < -7.0) {
 		bob = -7.0;
 	}
-
 
 	return bob;
 };

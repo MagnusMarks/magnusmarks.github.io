@@ -39,7 +39,6 @@ S.Init = function() {
 
 	var i, ambient_sfx = ['water1', 'wind2'], ch, nodes;
 
-
 	for (i = 0; i < ambient_sfx.length; ++i) {
 		ch = {sfx: S.PrecacheSound('ambience/' + ambient_sfx[i] + '.wav'), end: 0.0, master_vol: 0.0};
 		S.ambient_channels[i] = ch;
@@ -220,7 +219,6 @@ S.StartSound = function(entnum, entchannel, sfx, origin, vol, attenuation) {
 	target_chan.pos = 0.0;
 	target_chan.end = Host.realtime + sfx.cache.length;
 	var volume;
-
 
 	if (S.context != null) {
 		// noinspection JSUnresolvedFunction
@@ -456,10 +454,12 @@ S.UpdateAmbientSounds = function() {
 	var i, ch, vol, sc;
 
 	var l = Mod.PointInLeaf(S.listener_origin, CL.state.worldmodel);
+
 	if ((l == null) || (S.ambient_level.value === 0)) {
 		for (i = 0; i < S.ambient_channels.length; ++i) {
 			ch = S.ambient_channels[i];
 			ch.master_vol = 0.0;
+
 			if (ch.nodes != null) {
 				S.NoteOff(ch.nodes.source);
 			} else if (ch.audio != null) {
@@ -468,27 +468,34 @@ S.UpdateAmbientSounds = function() {
 				}
 			}
 		}
+
 		return;
 	}
 
-
 	for (i = 0; i < S.ambient_channels.length; ++i) {
 		ch = S.ambient_channels[i];
+
 		if ((ch.nodes == null) && (ch.audio == null)) {
 			continue;
 		}
+
 		vol = S.ambient_level.value * l.ambient_level[i];
+
 		if (vol < 8.0) {
 			vol = 0.0;
 		}
+
 		vol /= 255.0;
+
 		if (ch.master_vol < vol) {
 			ch.master_vol += (Host.frametime * S.ambient_fade.value) / 255.0;
+
 			if (ch.master_vol > vol) {
 				ch.master_vol = vol;
 			}
 		} else if (ch.master_vol > vol) {
 			ch.master_vol -= (Host.frametime * S.ambient_fade.value) / 255.0;
+
 			if (ch.master_vol < vol) {
 				ch.master_vol = vol;
 			}
@@ -502,11 +509,14 @@ S.UpdateAmbientSounds = function() {
 					ch.audio.pause();
 				}
 			}
+
 			continue;
 		}
+
 		if (ch.master_vol > 1.0) {
 			ch.master_vol = 1.0;
 		}
+
 		if (S.context != null) {
 			ch.nodes.gain.gain.value = ch.master_vol * S.volume.value;
 			S.NoteOn(ch.nodes.source);
@@ -517,11 +527,13 @@ S.UpdateAmbientSounds = function() {
 			}
 
 			sc = ch.sfx.cache;
+
 			if (ch.audio.paused === true) {
 				ch.audio.play();
 				ch.end = Host.realtime + sc.length;
 				continue;
 			}
+
 			if (Host.realtime >= ch.end) {
 				try {
 					ch.audio.currentTime = sc.loopstart;
@@ -529,6 +541,7 @@ S.UpdateAmbientSounds = function() {
 					ch.end = Host.realtime;
 					continue;
 				}
+
 				ch.end = Host.realtime + sc.length - sc.loopstart;
 			}
 		}
@@ -538,17 +551,20 @@ S.UpdateAmbientSounds = function() {
 S.UpdateDynamicSounds = function() {
 	var i, ch, sc, volume;
 
-
 	for (i = 0; i < S.channels.length; ++i) {
 		ch = S.channels[i];
+
 		if (ch == null) {
 			continue;
 		}
+
 		if (ch.sfx == null) {
 			continue;
 		}
+
 		if (Host.realtime >= ch.end) {
 			sc = ch.sfx.cache;
+
 			if (sc.loopstart != null) {
 				if (S.context == null) {
 					try {
@@ -558,29 +574,33 @@ S.UpdateDynamicSounds = function() {
 						continue;
 					}
 				}
+
 				ch.end = Host.realtime + sc.length - sc.loopstart;
 			} else {
 				ch.sfx = null;
 				ch.nodes = null;
 				ch.audio = null;
+
 				continue;
 			}
 		}
 
 		S.Spatialize(ch);
 
-
 		if (S.context != null) {
 			if (ch.leftvol > 1.0) {
 				ch.leftvol = 1.0;
 			}
+
 			if (ch.rightvol > 1.0) {
 				ch.rightvol = 1.0;
 			}
+
 			ch.nodes.gain0.gain.volume = ch.leftvol * S.volume.value;
 			ch.nodes.gain1.gain.volume = ch.rightvol * S.volume.value;
 		} else {
 			volume = (ch.leftvol + ch.rightvol) * 0.5;
+
 			if (volume > 1.0) {
 				volume = 1.0;
 			}

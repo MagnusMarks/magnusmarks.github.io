@@ -11,7 +11,6 @@ Protocol.u = {
 	nolerp: 1 << 5,
 	frame: 1 << 6,
 	signal: 1 << 7,
-
 	angle1: 1 << 8,
 	angle3: 1 << 9,
 	model: 1 << 10,

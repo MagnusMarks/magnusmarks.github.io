@@ -568,26 +568,30 @@ Host.Connect_f = function() {
 Host.SavegameComment = function() {
 	var text = CL.state.levelname.replace(/\s/gm, '_');
 	var i;
+
 	for (i = CL.state.levelname.length; i <= 21; ++i) {
 		text += '_';
 	}
 
 	text += 'kills:';
 	var kills = CL.state.stats[Def.stat.monsters].toString();
+
 	if (kills.length === 2) {
 		text += '_';
 	} else if (kills.length === 1) {
 		text += '__';
 	}
+
 	text += kills + '/';
 	kills = CL.state.stats[Def.stat.totalmonsters].toString();
+
 	if (kills.length === 2) {
 		text += '_';
 	} else if (kills.length === 1) {
 		text += '__';
 	}
-	text += kills;
 
+	text += kills;
 
 	return text + '____';
 };
@@ -743,19 +747,21 @@ Host.Loadgame_f = function() {
 		Sys.Error('First token isn\'t a brace');
 	}
 
-
 	for (i = 86; i < f.length; ++i) {
 		if (f[i] === '}') {
 			++i;
 			break;
 		}
+
 		token = f[i].split('"');
 		keyname = token[1];
 		key = ED.FindGlobal(keyname);
+
 		if (key == null) {
 			Con.Print('\'' + keyname + '\' is not a global\n');
 			continue;
 		}
+
 		if (ED.ParseEpair(PR.globals, key, token[3]) !== true) {
 			Host.Error('Host.Loadgame_f: parse error');
 		}
@@ -765,33 +771,41 @@ Host.Loadgame_f = function() {
 	var entnum = 0, ent, j;
 	var data = f.slice(i).join('\n');
 
-
 	for (; ;) {
 		data = COM.Parse(data);
+
 		if (data == null) {
 			break;
 		}
+
 		if (COM.token.charCodeAt(0) !== 123) {
 			Sys.Error('Host.Loadgame_f: found ' + COM.token + ' when expecting {');
 		}
+
 		ent = SV.server.edicts[entnum++];
+
 		for (j = 0; j < PR.entityfields; ++j) {
 			ent.v_int[j] = 0;
 		}
+
 		ent.free = false;
 		data = ED.ParseEdict(data, ent);
+
 		if (ent.free !== true) {
 			SV.LinkEdict(ent);
 		}
 	}
+
 	SV.server.num_edicts = entnum;
 
 	SV.server.time = time;
 	var client = SV.svs.clients[0];
 	client.spawn_parms = [];
+
 	for (i = 0; i <= 15; ++i) {
 		client.spawn_parms[i] = spawn_parms[i];
 	}
+
 	CL.EstablishConnection('local');
 	Host.Reconnect_f();
 };

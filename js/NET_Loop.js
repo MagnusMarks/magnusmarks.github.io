@@ -31,7 +31,6 @@ Loop.Connect = function(host) {
 	Loop.client.driverdata = Loop.server;
 	Loop.server.driverdata = Loop.client;
 
-
 	return Loop.client;
 };
 
@@ -45,7 +44,6 @@ Loop.CheckNewConnections = function() {
 	Loop.server.canSend = true;
 	Loop.client.receiveMessageLength = 0;
 	Loop.client.canSend = true;
-
 
 	return Loop.server;
 };
@@ -86,7 +84,6 @@ Loop.GetMessage = function(sock) {
 
 Loop.SendMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-
 		return -1;
 	}
 
@@ -104,13 +101,11 @@ Loop.SendMessage = function(sock, data) {
 	buffer.set(new Uint8Array(data.data, 0, data.cursize), bufferLength + 3);
 	sock.canSend = false;
 
-
 	return 1;
 };
 
 Loop.SendUnreliableMessage = function(sock, data) {
 	if (sock.driverdata == null) {
-
 		return -1;
 	}
 
@@ -126,7 +121,6 @@ Loop.SendUnreliableMessage = function(sock, data) {
 	buffer[bufferLength + 1] = data.cursize & 0xff;
 	buffer[bufferLength + 2] = data.cursize >> 8;
 	buffer.set(new Uint8Array(data.data, 0, data.cursize), bufferLength + 3);
-
 
 	return 1;
 };

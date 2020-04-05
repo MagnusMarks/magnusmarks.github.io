@@ -262,7 +262,6 @@ SV.fatpvs = [];
 SV.CheckForNewClients = function() {
 	var ret, i;
 
-
 	for (; ;) {
 		ret = NET.CheckNewConnections();
 
@@ -659,7 +658,6 @@ SV.SendClientDatagram = function() {
 		return;
 	}
 
-
 	return true;
 };
 
@@ -819,14 +817,16 @@ SV.SaveSpawnparms = function() {
 	SV.svs.serverflags = PR.globals_float[PR.globalvars.serverflags];
 	var i, j;
 
-
 	for (i = 0; i < SV.svs.maxclients; ++i) {
 		Host.client = SV.svs.clients[i];
+
 		if (Host.client.active !== true) {
 			continue;
 		}
+
 		PR.globals_int[PR.globalvars.self] = Host.client.edict.num;
 		PR.ExecuteProgram(PR.globals_int[PR.globalvars.SetChangeParms]);
+
 		for (j = 0; j <= 15; ++j) {
 			Host.client.spawn_parms[j] = PR.globals_float[PR.globalvars.parms + j];
 		}
@@ -1030,15 +1030,16 @@ SV.CheckBottom = function(ent) {
 			start[0] = stop[0] = (x !== 0) ? maxs[0] : mins[0];
 			start[1] = stop[1] = (y !== 0) ? maxs[1] : mins[1];
 			trace = SV.Move(start, Vec.origin, Vec.origin, stop, 1, ent);
+
 			if ((trace.fraction !== 1.0) && (trace.endpos[2] > bottom)) {
 				bottom = trace.endpos[2];
 			}
+
 			if ((trace.fraction === 1.0) || ((mid - trace.endpos[2]) > 18.0)) {
 				return;
 			}
 		}
 	}
-
 
 	return true;
 };
@@ -1051,11 +1052,11 @@ SV.movestep = function(ent, move, relink) {
 	if ((ent.v_float[PR.entvars.flags] & (SV.fl.swim + SV.fl.fly)) !== 0) {
 		var i, enemy = ent.v_int[PR.entvars.enemy], dz;
 
-
 		for (i = 0; i <= 1; ++i) {
 			neworg[0] = ent.v_float[PR.entvars.origin] + move[0];
 			neworg[1] = ent.v_float[PR.entvars.origin1] + move[1];
 			neworg[2] = ent.v_float[PR.entvars.origin2];
+
 			if ((i === 0) && (enemy !== 0)) {
 				dz = ent.v_float[PR.entvars.origin2] - SV.server.edicts[enemy].v_float[PR.entvars.origin2];
 				if (dz > 40.0) {
@@ -1064,74 +1065,96 @@ SV.movestep = function(ent, move, relink) {
 					neworg[2] += 8.0;
 				}
 			}
-			trace = SV.Move(ED.Vector(ent, PR.entvars.origin), mins, maxs, neworg, 0, ent);
 
+			trace = SV.Move(ED.Vector(ent, PR.entvars.origin), mins, maxs, neworg, 0, ent);
 
 			if (trace.fraction === 1.0) {
 				if (((ent.v_float[PR.entvars.flags] & SV.fl.swim) !== 0) && (SV.PointContents(trace.endpos) === Mod.contents.empty)) {
 					return 0;
 				}
+
 				ent.v_float[PR.entvars.origin] = trace.endpos[0];
 				ent.v_float[PR.entvars.origin1] = trace.endpos[1];
 				ent.v_float[PR.entvars.origin2] = trace.endpos[2];
+
 				if (relink === true) {
 					SV.LinkEdict(ent, true);
 				}
+
 				return 1;
 			}
+
 			if (enemy === 0) {
 				return 0;
 			}
 		}
+
 		return 0;
 	}
+
 	neworg[0] = ent.v_float[PR.entvars.origin] + move[0];
 	neworg[1] = ent.v_float[PR.entvars.origin1] + move[1];
 	neworg[2] = ent.v_float[PR.entvars.origin2] + 18.0;
 	var end = [neworg[0], neworg[1], neworg[2] - 36.0];
 	trace = SV.Move(neworg, mins, maxs, end, 0, ent);
+
 	if (trace.allsolid === true) {
 		return 0;
 	}
+
 	if (trace.startsolid === true) {
 		neworg[2] -= 18.0;
 		trace = SV.Move(neworg, mins, maxs, end, 0, ent);
+
 		if ((trace.allsolid === true) || (trace.startsolid === true)) {
 			return 0;
 		}
 	}
+
 	if (trace.fraction === 1.0) {
 		if ((ent.v_float[PR.entvars.flags] & SV.fl.partialground) === 0) {
 			return 0;
 		}
+
 		ent.v_float[PR.entvars.origin] += move[0];
 		ent.v_float[PR.entvars.origin1] += move[1];
+
 		if (relink === true) {
 			SV.LinkEdict(ent, true);
 		}
+
 		ent.v_float[PR.entvars.flags] &= (~SV.fl.onground >>> 0);
+
 		return 1;
 	}
+
 	ent.v_float[PR.entvars.origin] = trace.endpos[0];
 	ent.v_float[PR.entvars.origin1] = trace.endpos[1];
 	ent.v_float[PR.entvars.origin2] = trace.endpos[2];
+
 	if (SV.CheckBottom(ent) !== true) {
 		if ((ent.v_float[PR.entvars.flags] & SV.fl.partialground) !== 0) {
 			if (relink === true) {
 				SV.LinkEdict(ent, true);
 			}
+
 			return 1;
 		}
+
 		ent.v_float[PR.entvars.origin] = oldorg[0];
 		ent.v_float[PR.entvars.origin1] = oldorg[1];
 		ent.v_float[PR.entvars.origin2] = oldorg[2];
+
 		return 0;
 	}
+
 	ent.v_float[PR.entvars.flags] &= (~SV.fl.partialground >>> 0);
 	ent.v_int[PR.entvars.groundentity] = trace.ent.num;
+
 	if (relink === true) {
 		SV.LinkEdict(ent, true);
 	}
+
 	return 1;
 };
 
@@ -1149,7 +1172,6 @@ SV.StepDirection = function(ent, yaw, dist) {
 		}
 
 		SV.LinkEdict(ent, true);
-
 
 		return true;
 	}
@@ -1226,15 +1248,16 @@ SV.NewChaseDir = function(actor, enemy, dist) {
 
 SV.CloseEnough = function(ent, goal, dist) {
 	var i;
+
 	for (i = 0; i <= 2; ++i) {
 		if (goal.v_float[PR.entvars.absmin + i] > (ent.v_float[PR.entvars.absmax + i] + dist)) {
 			return;
 		}
+
 		if (goal.v_float[PR.entvars.absmax + i] < (ent.v_float[PR.entvars.absmin + i] - dist)) {
 			return;
 		}
 	}
-
 
 	return true;
 };
@@ -1243,7 +1266,6 @@ SV.CloseEnough = function(ent, goal, dist) {
 
 SV.CheckAllEnts = function() {
 	var e, check;
-
 
 	for (e = 1; e < SV.server.num_edicts; ++e) {
 		check = SV.server.edicts[e];
@@ -1292,7 +1314,6 @@ SV.RunThink = function(ent) {
 	var thinktime = ent.v_float[PR.entvars.nextthink];
 
 	if ((thinktime <= 0.0) || (thinktime > (SV.server.time + Host.frametime))) {
-
 		return true;
 	}
 
@@ -1306,7 +1327,6 @@ SV.RunThink = function(ent) {
 	PR.globals_int[PR.globalvars.other] = 0;
 	PR.ExecuteProgram(ent.v_int[PR.entvars.think]);
 
-
 	return (ent.free !== true);
 };
 
@@ -1315,13 +1335,11 @@ SV.Impact = function(e1, e2) {
 	var old_other = PR.globals_int[PR.globalvars.other];
 	PR.globals_float[PR.globalvars.time] = SV.server.time;
 
-
 	if ((e1.v_int[PR.entvars.touch] !== 0) && (e1.v_float[PR.entvars.solid] !== SV.solid.not)) {
 		PR.globals_int[PR.globalvars.self] = e1.num;
 		PR.globals_int[PR.globalvars.other] = e2.num;
 		PR.ExecuteProgram(e1.v_int[PR.entvars.touch]);
 	}
-
 
 	if ((e2.v_int[PR.entvars.touch] !== 0) && (e2.v_float[PR.entvars.solid] !== SV.solid.not)) {
 		PR.globals_int[PR.globalvars.self] = e2.num;
@@ -1364,36 +1382,42 @@ SV.FlyMove = function(ent, time) {
 	var time_left = time;
 	var blocked = 0;
 
-
 	for (bumpcount = 0; bumpcount <= 3; ++bumpcount) {
+
 		if ((ent.v_float[PR.entvars.velocity] === 0.0) &&
 			(ent.v_float[PR.entvars.velocity1] === 0.0) &&
 			(ent.v_float[PR.entvars.velocity2] === 0.0)) {
 			break;
 		}
+
 		end[0] = ent.v_float[PR.entvars.origin] + time_left * ent.v_float[PR.entvars.velocity];
 		end[1] = ent.v_float[PR.entvars.origin1] + time_left * ent.v_float[PR.entvars.velocity1];
 		end[2] = ent.v_float[PR.entvars.origin2] + time_left * ent.v_float[PR.entvars.velocity2];
 		trace = SV.Move(ED.Vector(ent, PR.entvars.origin), ED.Vector(ent, PR.entvars.mins), ED.Vector(ent, PR.entvars.maxs), end, 0, ent);
+
 		if (trace.allsolid === true) {
 			ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
 
-
 			return 3;
 		}
+
 		if (trace.fraction > 0.0) {
 			ED.SetVector(ent, PR.entvars.origin, trace.endpos);
 			original_velocity = ED.Vector(ent, PR.entvars.velocity);
 			numplanes = 0;
+
 			if (trace.fraction === 1.0) {
 				break;
 			}
 		}
+
 		if (trace.ent == null) {
 			Sys.Error('SV.FlyMove: !trace.ent');
 		}
+
 		if (trace.plane.normal[2] > 0.7) {
 			blocked |= 1;
+
 			if (trace.ent.v_float[PR.entvars.solid] === SV.solid.bsp) {
 				ent.v_float[PR.entvars.flags] |= SV.fl.onground;
 				ent.v_int[PR.entvars.groundentity] = trace.ent.num;
@@ -1402,31 +1426,41 @@ SV.FlyMove = function(ent, time) {
 			blocked |= 2;
 			SV.steptrace = trace;
 		}
+
 		SV.Impact(ent, trace.ent);
+
 		if (ent.free === true) {
 			break;
 		}
+
 		time_left -= time_left * trace.fraction;
+
 		if (numplanes >= 5) {
 			ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
 
 			return 3;
 		}
+
 		planes[numplanes++] = [trace.plane.normal[0], trace.plane.normal[1], trace.plane.normal[2]];
+
 		for (i = 0; i < numplanes; ++i) {
 			SV.ClipVelocity(original_velocity, planes[i], new_velocity, 1.0);
+
 			for (j = 0; j < numplanes; ++j) {
 				if (j !== i) {
 					plane = planes[j];
+
 					if ((new_velocity[0] * plane[0] + new_velocity[1] * plane[1] + new_velocity[2] * plane[2]) < 0.0) {
 						break;
 					}
 				}
 			}
+
 			if (j === numplanes) {
 				break;
 			}
 		}
+
 		if (i !== numplanes) {
 			ED.SetVector(ent, PR.entvars.velocity, new_velocity);
 		} else {
@@ -1435,17 +1469,15 @@ SV.FlyMove = function(ent, time) {
 
 				return 7;
 			}
+
 			dir = Vec.CrossProduct(planes[0], planes[1]);
-			d = dir[0] * ent.v_float[PR.entvars.velocity] +
-				dir[1] * ent.v_float[PR.entvars.velocity1] +
-				dir[2] * ent.v_float[PR.entvars.velocity2];
+			d = dir[0] * ent.v_float[PR.entvars.velocity] + dir[1] * ent.v_float[PR.entvars.velocity1] + dir[2] * ent.v_float[PR.entvars.velocity2];
 			ent.v_float[PR.entvars.velocity] = dir[0] * d;
 			ent.v_float[PR.entvars.velocity1] = dir[1] * d;
 			ent.v_float[PR.entvars.velocity2] = dir[2] * d;
 		}
-		if ((ent.v_float[PR.entvars.velocity] * primal_velocity[0] +
-			ent.v_float[PR.entvars.velocity1] * primal_velocity[1] +
-			ent.v_float[PR.entvars.velocity2] * primal_velocity[2]) <= 0.0) {
+
+		if ((ent.v_float[PR.entvars.velocity] * primal_velocity[0] + ent.v_float[PR.entvars.velocity1] * primal_velocity[1] + ent.v_float[PR.entvars.velocity2] * primal_velocity[2]) <= 0.0) {
 			ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
 
 			return blocked;
@@ -1521,52 +1553,51 @@ SV.PushMove = function(pusher, movetime) {
 	var e, check, movetype;
 	var entorig, moved = [], moved_edict, i;
 
-
 	for (e = 1; e < SV.server.num_edicts; ++e) {
 		check = SV.server.edicts[e];
+
 		if (check.free === true) {
 			continue;
 		}
+
 		movetype = check.v_float[PR.entvars.movetype];
-		if ((movetype === SV.movetype.push)
-			|| (movetype === SV.movetype.none)
-			|| (movetype === SV.movetype.noclip)) {
+
+		if ((movetype === SV.movetype.push) || (movetype === SV.movetype.none) || (movetype === SV.movetype.noclip)) {
 			continue;
 		}
-		if (((check.v_float[PR.entvars.flags] & SV.fl.onground) === 0) ||
-			(check.v_int[PR.entvars.groundentity] !== pusher.num)) {
-			if ((check.v_float[PR.entvars.absmin] >= maxs[0])
-				|| (check.v_float[PR.entvars.absmin1] >= maxs[1])
-				|| (check.v_float[PR.entvars.absmin2] >= maxs[2])
-				|| (check.v_float[PR.entvars.absmax] <= mins[0])
-				|| (check.v_float[PR.entvars.absmax1] <= mins[1])
-				|| (check.v_float[PR.entvars.absmax2] <= mins[2])) {
+
+		if (((check.v_float[PR.entvars.flags] & SV.fl.onground) === 0) || (check.v_int[PR.entvars.groundentity] !== pusher.num)) {
+			if ((check.v_float[PR.entvars.absmin] >= maxs[0]) || (check.v_float[PR.entvars.absmin1] >= maxs[1]) || (check.v_float[PR.entvars.absmin2] >= maxs[2]) || (check.v_float[PR.entvars.absmax] <= mins[0]) || (check.v_float[PR.entvars.absmax1] <= mins[1]) || (check.v_float[PR.entvars.absmax2] <= mins[2])) {
 				continue;
 			}
+
 			if (SV.TestEntityPosition(check) !== true) {
 				continue;
 			}
 		}
+
 		if (movetype !== SV.movetype.walk) {
 			check.v_float[PR.entvars.flags] &= (~SV.fl.onground) >>> 0;
 		}
+
 		entorig = ED.Vector(check, PR.entvars.origin);
 		moved[moved.length] = [entorig[0], entorig[1], entorig[2], check];
 		pusher.v_float[PR.entvars.solid] = SV.solid.not;
 		SV.PushEntity(check, move);
 		pusher.v_float[PR.entvars.solid] = SV.solid.bsp;
 
-
 		if (SV.TestEntityPosition(check) === true) {
 			if (check.v_float[PR.entvars.mins] === check.v_float[PR.entvars.maxs]) {
 				continue;
 			}
+
 			if ((check.v_float[PR.entvars.solid] === SV.solid.not) || (check.v_float[PR.entvars.solid] === SV.solid.trigger)) {
 				check.v_float[PR.entvars.mins] = check.v_float[PR.entvars.maxs] = 0.0;
 				check.v_float[PR.entvars.mins1] = check.v_float[PR.entvars.maxs1] = 0.0;
 				check.v_float[PR.entvars.maxs2] = check.v_float[PR.entvars.mins2];
 				continue;
 			}
+
 			check.v_float[PR.entvars.origin] = entorig[0];
 			check.v_float[PR.entvars.origin1] = entorig[1];
 			check.v_float[PR.entvars.origin2] = entorig[2];
@@ -1576,6 +1607,7 @@ SV.PushMove = function(pusher, movetime) {
 			pusher.v_float[PR.entvars.origin2] = pushorig[2];
 			SV.LinkEdict(pusher);
 			pusher.v_float[PR.entvars.ltime] -= movetime;
+
 			if (pusher.v_int[PR.entvars.blocked] !== 0) {
 				PR.globals_int[PR.globalvars.self] = pusher.num;
 				PR.globals_int[PR.globalvars.other] = check.num;
@@ -1589,6 +1621,7 @@ SV.PushMove = function(pusher, movetime) {
 				moved_edict[3].v_float[PR.entvars.origin2] = moved_edict[2];
 				SV.LinkEdict(moved_edict[3]);
 			}
+
 			return;
 		}
 	}
@@ -1664,22 +1697,25 @@ SV.CheckWater = function(ent) {
 	ent.v_float[PR.entvars.waterlevel] = 0.0;
 	ent.v_float[PR.entvars.watertype] = Mod.contents.empty;
 	var cont = SV.PointContents(point);
+
 	if (cont > Mod.contents.water) {
 		return;
 	}
+
 	ent.v_float[PR.entvars.watertype] = cont;
 	ent.v_float[PR.entvars.waterlevel] = 1.0;
 	point[2] = ent.v_float[PR.entvars.origin2] + (ent.v_float[PR.entvars.mins2] + ent.v_float[PR.entvars.maxs2]) * 0.5;
 	cont = SV.PointContents(point);
+
 	if (cont <= Mod.contents.water) {
 		ent.v_float[PR.entvars.waterlevel] = 2.0;
 		point[2] = ent.v_float[PR.entvars.origin2] + ent.v_float[PR.entvars.view_ofs2];
 		cont = SV.PointContents(point);
+
 		if (cont <= Mod.contents.water) {
 			ent.v_float[PR.entvars.waterlevel] = 3.0;
 		}
 	}
-
 
 	return ent.v_float[PR.entvars.waterlevel] > 1.0;
 };
@@ -1751,7 +1787,6 @@ SV.TryUnstick = function(ent, oldvel) {
 	}
 
 	ED.SetVector(ent, PR.entvars.velocity, Vec.origin);
-
 
 	return 7;
 };
@@ -2265,7 +2300,6 @@ SV.ReadClientMessage = function() {
 
 		MSG.BeginReading();
 
-
 		for (; ;) {
 			if (Host.client.active !== true) {
 				return;
@@ -2298,6 +2332,7 @@ SV.ReadClientMessage = function() {
 					Cmd.ExecuteString(s, true);
 					break;
 				}
+
 				if (i === cmds.length) {
 					Con.DPrint(SV.GetClientName(Host.client) + ' tried to ' + s);
 				}
@@ -2449,24 +2484,22 @@ SV.UnlinkEdict = function(ent) {
 SV.TouchLinks = function(ent, node) {
 	var l, next, touch, old_self, old_other;
 
-
 	for (l = node.trigger_edicts.next; l !== node.trigger_edicts; l = next) {
 		next = l.next;
 		touch = l.ent;
+
 		if (touch === ent) {
 			continue;
 		}
+
 		if ((touch.v_int[PR.entvars.touch] === 0) || (touch.v_float[PR.entvars.solid] !== SV.solid.trigger)) {
 			continue;
 		}
-		if ((ent.v_float[PR.entvars.absmin] > touch.v_float[PR.entvars.absmax]) ||
-			(ent.v_float[PR.entvars.absmin1] > touch.v_float[PR.entvars.absmax1]) ||
-			(ent.v_float[PR.entvars.absmin2] > touch.v_float[PR.entvars.absmax2]) ||
-			(ent.v_float[PR.entvars.absmax] < touch.v_float[PR.entvars.absmin]) ||
-			(ent.v_float[PR.entvars.absmax1] < touch.v_float[PR.entvars.absmin1]) ||
-			(ent.v_float[PR.entvars.absmax2] < touch.v_float[PR.entvars.absmin2])) {
+
+		if ((ent.v_float[PR.entvars.absmin] > touch.v_float[PR.entvars.absmax]) || (ent.v_float[PR.entvars.absmin1] > touch.v_float[PR.entvars.absmax1]) || (ent.v_float[PR.entvars.absmin2] > touch.v_float[PR.entvars.absmax2]) || (ent.v_float[PR.entvars.absmax] < touch.v_float[PR.entvars.absmin]) || (ent.v_float[PR.entvars.absmax1] < touch.v_float[PR.entvars.absmin1]) || (ent.v_float[PR.entvars.absmax2] < touch.v_float[PR.entvars.absmin2])) {
 			continue;
 		}
+
 		old_self = PR.globals_int[PR.globalvars.self];
 		old_other = PR.globals_int[PR.globalvars.other];
 		PR.globals_int[PR.globalvars.self] = touch.num;
@@ -2476,12 +2509,15 @@ SV.TouchLinks = function(ent, node) {
 		PR.globals_int[PR.globalvars.self] = old_self;
 		PR.globals_int[PR.globalvars.other] = old_other;
 	}
+
 	if (node.axis === -1) {
 		return;
 	}
+
 	if (ent.v_float[PR.entvars.absmax + node.axis] > node.dist) {
 		SV.TouchLinks(ent, node.children[0]);
 	}
+
 	if (ent.v_float[PR.entvars.absmin + node.axis] < node.dist) {
 		SV.TouchLinks(ent, node.children[1]);
 	}
@@ -2623,7 +2659,6 @@ SV.RecursiveHullCheck = function(hull, num, p1f, p2f, p1, p2, trace) {
 			trace.startsolid = true;
 		}
 
-
 		return true;
 	}
 
@@ -2694,6 +2729,7 @@ SV.RecursiveHullCheck = function(hull, num, p1f, p2f, p1, p2, trace) {
 			trace.fraction = midf;
 			trace.endpos = [mid[0], mid[1], mid[2]];
 			Con.DPrint('backup past 0\n');
+
 			return;
 		}
 

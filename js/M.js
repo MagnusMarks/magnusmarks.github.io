@@ -434,7 +434,6 @@ M.MultiPlayer_Key = function(k) {
 		M.Menu_Main_f();
 	}
 
-
 	switch (k) {
 		case Key.k.uparrow:
 			S.LocalSound(M.sfx_menu1);

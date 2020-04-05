@@ -58,13 +58,10 @@ CL.WriteDemoMessage = function() {
 
 CL.GetMessage = function() {
 	// Sys.DPrint('CL.GetMessage()');
-
-
 	if (CL.cls.demoplayback === true) {
 		if (CL.cls.signon === 4) {
 			if (CL.cls.timedemo === true) {
 				if (Host.framecount === CL.cls.td_lastframe) {
-
 					return 0;
 				}
 
@@ -74,14 +71,12 @@ CL.GetMessage = function() {
 					CL.cls.td_starttime = Host.realtime;
 				}
 			} else if (CL.state.time <= CL.state.mtime[0]) {
-
 				return 0;
 			}
 		}
 
 		if ((CL.cls.demoofs + 16) >= CL.cls.demosize) {
 			CL.StopPlayback();
-
 
 			return 0;
 		}
@@ -100,7 +95,6 @@ CL.GetMessage = function() {
 		if ((CL.cls.demoofs + NET.message.cursize) > CL.cls.demosize) {
 			CL.StopPlayback();
 
-
 			return 0;
 		}
 
@@ -114,7 +108,6 @@ CL.GetMessage = function() {
 
 		CL.cls.demoofs += NET.message.cursize;
 
-
 		return 1;
 	}
 
@@ -124,7 +117,6 @@ CL.GetMessage = function() {
 		r = NET.GetMessage(CL.cls.netcon);
 
 		if ((r !== 1) && (r !== 2)) {
-
 			return r;
 		}
 
@@ -138,7 +130,6 @@ CL.GetMessage = function() {
 	if (CL.cls.demorecording === true) {
 		CL.WriteDemoMessage();
 	}
-
 
 	return r;
 };
@@ -334,7 +325,6 @@ CL.kbutton = {
 
 CL.kbuttons = [];
 
-
 CL.KeyDown = function() {
 	// Sys.DPrint('CL.KeyDown()');
 
@@ -439,19 +429,15 @@ CL.KeyState = function(key) {
 
 	if ((key.state & 2) !== 0) {
 		if ((key.state & 4) !== 0) {
-
 			return (down !== 0) ? 0.75 : 0.25;
 		}
-
 
 		return (down !== 0) ? 0.5 : 0.0;
 	}
 
 	if ((key.state & 4) !== 0) {
-
 		return 0.0;
 	}
-
 
 	return (down !== 0) ? 1.0 : 0.0;
 };
@@ -981,7 +967,6 @@ CL.LerpPoint = function() {
 	if ((f === 0.0) || (CL.nolerp.value !== 0) || (CL.cls.timedemo === true) || (SV.server.active === true)) {
 		CL.state.time = CL.state.mtime[0];
 
-
 		return 1.0;
 	}
 
@@ -997,7 +982,6 @@ CL.LerpPoint = function() {
 			CL.state.time = CL.state.mtime[1];
 		}
 
-
 		return 0.0;
 	}
 
@@ -1006,10 +990,8 @@ CL.LerpPoint = function() {
 			CL.state.time = CL.state.mtime[0];
 		}
 
-
 		return 1.0;
 	}
-
 
 	return frac;
 };
@@ -1677,7 +1659,6 @@ CL.ParseServerMessage = function() {
 	MSG.BeginReading();
 
 	var cmd, i;
-
 
 	for (; ;) {
 		if (MSG.badread === true) {

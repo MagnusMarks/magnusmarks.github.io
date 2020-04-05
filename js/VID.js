@@ -14,7 +14,6 @@ VID.SetPalette = function() {
 	var pal = new Uint8Array(palette);
 	var i, src = 0;
 
-
 	for (i = 0; i < 256; ++i) {
 		VID.d_8to24table[i] = pal[src] + (pal[src + 1] << 8) + (pal[src + 2] << 16);
 		src += 3;

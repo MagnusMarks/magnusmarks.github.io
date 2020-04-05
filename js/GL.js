@@ -327,7 +327,6 @@ GL.CreateProgram = function(identifier, uniforms, attribs, textures) {
 	program.vertexSize = 0;
 	program.attribBits = 0;
 
-
 	for (i = 0; i < attribs.length; ++i) {
 		var attribParameters = attribs[i];
 		var attrib = {

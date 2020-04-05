@@ -19,7 +19,6 @@ W.LoadWadFile = function(filename) {
 	var infotableofs = view.getUint32(8, true);
 	var i, size, lump;
 
-
 	for (i = 0; i < numlumps; ++i) {
 		size = view.getUint32(infotableofs + 4, true);
 		lump = new ArrayBuffer(size);

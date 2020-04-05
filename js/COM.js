@@ -116,12 +116,11 @@ COM.CheckParm = function(parm) {
 		console.log(parm);
 		console.log('COM.argv[i] === parm');
 		console.log(COM.argv[i] === parm);
-		if (COM.argv[i] === parm) {
 
+		if (COM.argv[i] === parm) {
 			return i;
 		}
 	}
-
 
 	return null;
 };
@@ -145,7 +144,6 @@ COM.CheckRegistered = function() {
 	}
 
 	var check = new Uint8Array(h);
-
 
 	var pop = [
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -280,7 +278,6 @@ COM.WriteFile = function(filename, data, len) {
 
 	Sys.Print('COM.WriteFile: ' + filename + '\n');
 
-
 	return true;
 };
 
@@ -298,7 +295,6 @@ COM.WriteTextFile = function(filename, data) {
 
 	Sys.Print('COM.WriteTextFile: ' + filename + '\n');
 
-
 	return true;
 };
 
@@ -315,7 +311,6 @@ COM.LoadFile = function(filename) {
 
 	Draw.BeginDisc(filename);
 
-
 	for (i = COM.searchpaths.length - 1; i >= 0; --i) {
 		search = COM.searchpaths[i];
 		netpath = search.filename + '/' + filename;
@@ -330,7 +325,6 @@ COM.LoadFile = function(filename) {
 
 		for (j = search.pack.length - 1; j >= 0; --j) {
 			pak = search.pack[j];
-
 
 			for (k = 0; k < pak.length; ++k) {
 				file = pak[k];
@@ -397,7 +391,6 @@ COM.LoadTextFile = function(filename) {
 		}
 	}
 
-
 	return f.join('');
 };
 
@@ -434,7 +427,6 @@ COM.LoadPackFile = function(packfile) {
 
 	var pack = [];
 
-
 	if (numpackfiles !== 0) {
 		xhr.open('GET', packfile, false);
 		// xhr.open('GET', PAK[paknumber]['pak' + paknumber], false);
@@ -452,7 +444,6 @@ COM.LoadPackFile = function(packfile) {
 		}
 
 		var i;
-
 
 		for (i = 0; i < numpackfiles; ++i) {
 			pack[pack.length] = {

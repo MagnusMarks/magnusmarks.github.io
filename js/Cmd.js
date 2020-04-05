@@ -122,7 +122,6 @@ Cmd.Alias_f = function() {
 
 	var i;
 
-
 	if (Cmd.argv.length <= 1) {
 		Con.Print('Current alias commands:\n');
 
@@ -173,7 +172,6 @@ Cmd.TokenizeString = function(text) {
 	Cmd.argv = [];
 
 	var i, c;
-
 
 	for (; ;) {
 		for (i = 0; i < text.length; ++i) {

@@ -32,7 +32,6 @@ R.lightstylevalue = new Uint8Array(new ArrayBuffer(64));
 R.AnimateLight = function() {
 	var j;
 
-
 	if (R.fullbright.value === 0) {
 		var i = Math.floor(CL.state.time * 10.0);
 
@@ -64,7 +63,6 @@ R.RenderDlights = function() {
 	gl.bindBuffer(gl.ARRAY_BUFFER, R.dlightvecs);
 	// noinspection JSUnresolvedVariable
 	gl.vertexAttribPointer(program.aPosition.location, 3, gl.FLOAT, false, 0, 0);
-
 
 	for (var i = 0; i <= 31; ++i) {
 		l = CL.dlights[i];
@@ -192,7 +190,6 @@ R.PushDlights = function() {
 
 R.RecursiveLightPoint = function(node, start, end) {
 	if (node.contents < 0) {
-
 		return -1;
 	}
 
@@ -206,6 +203,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 	}
 
 	var frac = front / (front - back);
+
 	var mid = [
 		start[0] + (end[0] - start[0]) * frac,
 		start[1] + (end[1] - start[1]) * frac,
@@ -213,12 +211,12 @@ R.RecursiveLightPoint = function(node, start, end) {
 	];
 
 	var r = R.RecursiveLightPoint(node.children[side === true ? 1 : 0], start, mid);
+
 	if (r >= 0) {
 		return r;
 	}
 
 	if ((back < 0) === side) {
-
 		return -1;
 	}
 
@@ -226,6 +224,7 @@ R.RecursiveLightPoint = function(node, start, end) {
 
 	for (i = 0; i < node.numfaces; ++i) {
 		surf = CL.state.worldmodel.faces[node.firstface + i];
+
 		if ((surf.sky === true) || (surf.turbulent === true)) {
 			continue;
 		}
@@ -234,18 +233,19 @@ R.RecursiveLightPoint = function(node, start, end) {
 
 		s = Vec.DotProduct(mid, tex.vecs[0]) + tex.vecs[0][3];
 		t = Vec.DotProduct(mid, tex.vecs[1]) + tex.vecs[1][3];
+
 		if ((s < surf.texturemins[0]) || (t < surf.texturemins[1])) {
 			continue;
 		}
 
 		ds = s - surf.texturemins[0];
 		dt = t - surf.texturemins[1];
+
 		if ((ds > surf.extents[0]) || (dt > surf.extents[1])) {
 			continue;
 		}
 
 		if (surf.lightofs === 0) {
-
 			return 0;
 		}
 
@@ -253,8 +253,8 @@ R.RecursiveLightPoint = function(node, start, end) {
 		dt >>= 4;
 
 		lightmap = surf.lightofs;
-		if (lightmap === 0) {
 
+		if (lightmap === 0) {
 			return 0;
 		}
 
@@ -266,9 +266,9 @@ R.RecursiveLightPoint = function(node, start, end) {
 			lightmap += size;
 		}
 
-
 		return r >> 8;
 	}
+
 	return R.RecursiveLightPoint(node.children[side !== true ? 1 : 0], mid, end);
 };
 
