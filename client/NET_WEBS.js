@@ -19,7 +19,7 @@ WEBS.Connect = function(host) {
 		return;
 	}
 
-	if (host.substring(0, 5) !== 'ws://' || host.substring(0, 6) !== 'wss://') {
+	if (host.substring(0, 5) !== 'ws://' && host.substring(0, 6) !== 'wss://') {
 		return;
 	}
 
