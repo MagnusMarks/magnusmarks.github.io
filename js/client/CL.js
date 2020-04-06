@@ -811,6 +811,14 @@ CL.EstablishConnection = function(host) {
 		return;
 	}
 
+	if (host.substring(0, 5) !== 'ws://' && host.substring(0, 6) !== 'wss://') {
+		host = (document.location.protocol === 'https:' ? 'wss://' : 'ws://') + host;
+	}
+
+	if (!~host.replace(':', '').indexOf(':')) {
+		host += (document.location.protocol === 'https:' ? ':26443' : ':26000');
+	}
+
 	CL.Disconnect();
 	CL.host = host;
 

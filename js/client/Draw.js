@@ -193,7 +193,7 @@ Draw.ConsoleBackground = function(lines) {
 };
 
 Draw.Fill = function(x, y, w, h, c) {
-	Sys.DPrint(Draw.id, 'Fill', arguments);
+	// Sys.DPrint(Draw.id, 'Fill', arguments);
 
 	GL.UseProgram('Fill', true);
 	var color = VID.d_8to24table[c];

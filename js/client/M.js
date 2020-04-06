@@ -482,11 +482,6 @@ M.MultiPlayer_Key = function(k) {
 					Key.dest.value = Key.dest.game;
 					M.state.value = M.state.none;
 					Cmd.text += 'connect "';
-
-					if (M.multiplayer_joinname.substring(0, 5) !== 'ws://' && M.multiplayer_joinname.substring(0, 6) !== 'wss://') {
-						Cmd.text += document.location.protocol === 'https:' ? 'wss://' : 'ws://';
-					}
-
 					Cmd.text += M.multiplayer_joinname + '"\n';
 					return;
 				case 2:

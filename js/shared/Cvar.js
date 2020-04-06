@@ -33,7 +33,7 @@ Cvar.CompleteVariable = function(partial) {
 };
 
 Cvar.Set = function(name, value) {
-	Sys.DPrint(Cvar.id, 'Set', arguments);
+	// Sys.DPrint(Cvar.id, 'Set', arguments);
 
 	var i, v, changed;
 
