@@ -69,6 +69,11 @@ WEBS.Listen = function() {
 			httpServer: WEBS.http,
 			maxReceivedMessageSize: 8192
 		});
+
+		WEBS.server.mount({
+			httpServer: WEBS.https,
+			maxReceivedMessageSize: 8192
+		});
 	} catch (e) {
 		NET.listening = false;
 
