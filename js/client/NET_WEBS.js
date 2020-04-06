@@ -28,7 +28,7 @@ WEBS.Connect = function(host) {
 	console.log(host);
 
 	if (!~host.replace(':', '').indexOf(':')) {
-		host += document.location.protocol === 'https:' ? ':26443' : ':26000';
+		host += (document.location.protocol === 'https:' ? ':26443' : ':26000');
 	}
 
 	console.log(host);
