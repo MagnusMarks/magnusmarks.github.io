@@ -25,9 +25,13 @@ WEBS.Connect = function(host) {
 
 	host = (document.location.protocol === 'https:' ? 'wss://' : 'ws://') + host.split('/')[2];
 
+	console.log(host);
+
 	if (!~host.replace(':', '').indexOf(':')) {
-		host += (document.location.protocol === 'https:' ? ':26443' : ':26000');
+		host += document.location.protocol === 'https:' ? ':26443' : ':26000';
 	}
+
+	console.log(host);
 
 	var sock = NET.NewQSocket();
 	sock.disconnected = true;
