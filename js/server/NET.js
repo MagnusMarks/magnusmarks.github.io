@@ -11,6 +11,10 @@ NET.activeconnections = 0;
 
 NET.hostport = 26000;
 
+if (Def.SSL === true) {
+	NET.hostport_ssl = 26443;
+}
+
 NET.NewQSocket = function() {
 	var i;
 

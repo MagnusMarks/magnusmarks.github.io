@@ -3,6 +3,7 @@ Node = {
 	dgram: require('dgram'),
 	fs: require('fs'),
 	http: require('http'),
+	https: require('https'),
 	os: require('os'),
 	url: require('url'),
 	websocket: require('websocket')

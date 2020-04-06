@@ -34,14 +34,35 @@ WEBS.Listen = function() {
 		WEBS.http.close();
 		WEBS.http = null;
 
+		if (WEBS.https == null) {
+			return;
+		}
+
+		WEBS.https.close();
+		WEBS.https = null;
+
 		return;
 	}
 
 	try {
 		WEBS.http = Node.http.createServer();
 		WEBS.http.listen(NET.hostport);
+		Con.Print('Listening to HTTP: ' + WEBS.http.address().address + ':' + WEBS.http.address().port + '\n');
 
-		Con.Print('Listening to TCP: ' + WEBS.http.address().address + ':' + WEBS.http.address().port + '\n');
+		if (Def.SSL === true) {
+			// read ssl certificate
+			var privateKey = Node.fs.readFileSync('ssl/privkey.pem', 'utf8');
+			var certificate = Node.fs.readFileSync('ssl/fullchain.pem', 'utf8');
+
+			var credentials = {
+				key: privateKey,
+				cert: certificate
+			};
+
+			WEBS.https = Node.https.createServer(credentials);
+			WEBS.https.listen(NET.hostport_ssl);
+			Con.Print('Listening to HTTPS: ' + WEBS.https.address().address + ':' + WEBS.https.address().port + '\n');
+		}
 
 		WEBS.http.on('request', WEBS.HTTPOnRequest);
 		WEBS.server.mount({

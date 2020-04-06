@@ -380,7 +380,7 @@ M.multiplayer_cursor = 0;
 
 M.multiplayer_cursor_table = [56, 72, 96, 120, 156];
 
-M.multiplayer_joinname = 'q1.emupedia.net:26000';
+M.multiplayer_joinname = 'q1.emupedia.net';
 
 M.multiplayer_items = 5;
 
@@ -471,19 +471,22 @@ M.MultiPlayer_Key = function(k) {
 			S.LocalSound(M.sfx_menu3);
 			return;
 		case Key.k.enter:
-
 			switch (M.multiplayer_cursor) {
 				case 0:
 					S.LocalSound(M.sfx_menu2);
+
 					if (WEBS.available !== true) {
 						return;
 					}
+
 					Key.dest.value = Key.dest.game;
 					M.state.value = M.state.none;
 					Cmd.text += 'connect "';
-					if (M.multiplayer_joinname.substring(0, 5) !== 'ws://') {
-						Cmd.text += 'ws://';
+
+					if (M.multiplayer_joinname.substring(0, 5) !== 'ws://' && M.multiplayer_joinname.substring(0, 6) !== 'wss://') {
+						Cmd.text += document.location.protocol === 'https:' ? 'wss://' : 'ws://';
 					}
+
 					Cmd.text += M.multiplayer_joinname + '"\n';
 					return;
 				case 2:
@@ -498,11 +501,13 @@ M.MultiPlayer_Key = function(k) {
 					if (CL.name.string !== M.multiplayer_myname) {
 						Cmd.text += 'name "' + M.multiplayer_myname + '"\n';
 					}
+
 					if ((M.multiplayer_top !== M.multiplayer_oldtop) || (M.multiplayer_bottom !== M.multiplayer_oldbottom)) {
 						M.multiplayer_oldtop = M.multiplayer_top;
 						M.multiplayer_oldbottom = M.multiplayer_bottom;
 						Cmd.text += 'color ' + M.multiplayer_top + ' ' + M.multiplayer_bottom + '\n';
 					}
+
 					M.entersound = true;
 			}
 			return;

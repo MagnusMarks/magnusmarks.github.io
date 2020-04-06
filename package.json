@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "websocket": "^1.0.25"
+    "websocket": "^1.0.31"
   },
   "devDependencies": {},
   "scripts": {

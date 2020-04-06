@@ -3,6 +3,7 @@ Def = {};
 Def.webquake_version = 56;
 Def.timedate = 'Exe: 21:25:32 Apr 05 2020\n';
 Def.basedir = 'assets/';
+Def.SSL = true;
 
 Def.max_edicts = 600;
 // Def.max_edicts = 8192;
