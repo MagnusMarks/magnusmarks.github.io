@@ -11,7 +11,7 @@ Host.EndGame = function(message) {
 		CL.Disconnect();
 	}
 
-	throw 'Host.abortserver';
+	//throw 'Host.abortserver';
 };
 
 Host.Error = function(error) {
@@ -31,7 +31,7 @@ Host.Error = function(error) {
 	CL.cls.demonum = -1;
 	Host.inerror = false;
 
-	throw new Error('Host.abortserver');
+	//throw new Error('Host.abortserver');
 };
 
 Host.FindMaxClients = function() {
