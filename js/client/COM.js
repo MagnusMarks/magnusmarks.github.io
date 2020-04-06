@@ -110,13 +110,6 @@ COM.CheckParm = function(parm) {
 	var i;
 
 	for (i = 1; i < COM.argv.length; ++i) {
-		console.log('COM.argv[i]');
-		console.log(COM.argv[i]);
-		console.log('parm');
-		console.log(parm);
-		console.log('COM.argv[i] === parm');
-		console.log(COM.argv[i] === parm);
-
 		if (COM.argv[i] === parm) {
 			return i;
 		}
@@ -313,7 +306,7 @@ COM.LoadFile = function(filename) {
 
 	for (i = COM.searchpaths.length - 1; i >= 0; --i) {
 		search = COM.searchpaths[i];
-		netpath = search.filename + '/' + filename;
+		netpath = Def.basedir + search.filename + '/' + filename;
 		data = localStorage.getItem('Quake.' + netpath);
 
 		if (data != null) {
@@ -339,7 +332,7 @@ COM.LoadFile = function(filename) {
 					return new ArrayBuffer(0);
 				}
 
-				xhr.open('GET', search.filename + '/pak' + j + '.zip', false);
+				xhr.open('GET', Def.basedir + search.filename + '/pak' + j + '.zip', false);
 				// xhr.open('GET', PAK[j]['pak' + j], false);
 				xhr.setRequestHeader('Range', 'bytes=' + file.filepos + '-' + (file.filepos + file.filelen - 1));
 				xhr.send();
@@ -400,7 +393,7 @@ COM.LoadPackFile = function(packfile) {
 	var xhr = new XMLHttpRequest();
 	xhr.overrideMimeType('text/plain; charset=x-user-defined');
 
-	var paknumber = parseInt(packfile.split('.')[0].split('/')[1].replace('pak', ''), 10);
+	//var paknumber = parseInt(packfile.split('.')[0].split('/')[1].replace('pak', ''), 10);
 
 	xhr.open('GET', packfile, false);
 	// xhr.open('GET', PAK[paknumber]['pak' + paknumber], false);
@@ -457,8 +450,6 @@ COM.LoadPackFile = function(packfile) {
 	Sys.Print('Added packfile ' + packfile + ' (' + numpackfiles + ' files)\n');
 	Con.Print('Added packfile ' + packfile + ' (' + numpackfiles + ' files)\n');
 
-	console.log(pack);
-
 	return pack;
 };
 
@@ -469,11 +460,15 @@ COM.AddGameDirectory = function(dir) {
 		return;
 	}
 
-	var search = {filename: dir, pack: []};
+	var search = {
+		filename: dir,
+		pack: []
+	};
+
 	var pak, i = 0;
 
 	for (; ;) {
-		pak = COM.LoadPackFile(dir + '/' + 'pak' + i + '.zip');
+		pak = COM.LoadPackFile(Def.basedir + dir + '/' + 'pak' + i + '.zip');
 
 		if (pak == null) {
 			break;

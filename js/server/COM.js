@@ -189,7 +189,7 @@ COM.LoadFile = function(filename) {
 				}
 
 				try {
-					fd = Node.fs.openSync(search.filename + '/pak' + j + '.zip', 'r');
+					fd = Node.fs.openSync(Def.basedir + search.filename + '/pak' + j + '.zip', 'r');
 				} catch (e) {
 					break;
 				}
@@ -208,7 +208,7 @@ COM.LoadFile = function(filename) {
 		}
 
 		try {
-			src = Node.fs.readFileSync(search.filename + '/' + filename);
+			src = Node.fs.readFileSync(Def.basedir + search.filename + '/' + filename);
 			//Sys.Print('FindFile: ' + search.filename + '/' + filename + '\n');
 			break;
 		} catch (e) {}
@@ -320,11 +320,15 @@ COM.LoadPackFile = function(packfile) {
 };
 
 COM.AddGameDirectory = function(dir) {
-	var search = {filename: dir, pack: []};
+	var search = {
+		filename: dir,
+		pack: []
+	};
+
 	var pak, i = 0;
 
 	for (;;) {
-		pak = COM.LoadPackFile(dir + '/' + 'pak' + i + '.zip');
+		pak = COM.LoadPackFile(Def.basedir + dir + '/' + 'pak' + i + '.zip');
 
 		if (pak == null) {
 			break;
