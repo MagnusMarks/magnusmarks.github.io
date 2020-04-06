@@ -1,6 +1,6 @@
 Sys = {};
 
-Sys.debug = true;
+Sys.debug = false;
 
 Sys.id = 'Sys';
 

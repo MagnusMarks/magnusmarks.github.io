@@ -25,7 +25,7 @@ require('./js/shared/PF.js');
 require('./js/shared/PR.js');
 require('./js/shared/Protocol.js');
 require('./js/shared/Q.js');
-require('./js/server/SV.js');
+require('./js/shared/SV.js');
 require('./js/server/Sys.js');
 require('./js/shared/SZ.js');
 require('./js/shared/V.js');

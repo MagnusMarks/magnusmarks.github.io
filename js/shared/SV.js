@@ -766,7 +766,8 @@ SV.SendClientMessages = function() {
 	}
 
 	for (i = 1; i < SV.server.num_edicts; ++i) {
-		SV.server.edicts[i].v_float[PR.entvars.effects] &= (~Mod.effects.muzzleflash >>> 0);
+		//SV.server.edicts[i].v_float[PR.entvars.effects] &= (~Mod.effects.muzzleflash >>> 0);
+		SV.server.edicts[i].v_float[PR.entvars.effects] &= 0xfffffffd;
 	}
 };
 
@@ -863,7 +864,9 @@ SV.SpawnServer = function(server) {
 		Cvar.Set('hostname', 'UNNAMED');
 	}
 
-	SCR.centertime_off = 0.0;
+	if (typeof SCR !== 'undefined') {
+		SCR.centertime_off = 0.0;
+	}
 
 	Con.DPrint('SpawnServer: ' + server + '\n');
 	SV.svs.changelevel_issued = false;
@@ -913,6 +916,7 @@ SV.SpawnServer = function(server) {
 			freetime: 0.0,
 			v: new ArrayBuffer(PR.entityfields << 2)
 		};
+
 		ed.area.ent = ed;
 		ed.v_float = new Float32Array(ed.v);
 		ed.v_int = new Int32Array(ed.v);
