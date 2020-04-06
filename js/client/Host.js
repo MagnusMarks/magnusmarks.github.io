@@ -556,12 +556,18 @@ Host.Reconnect_f = function() {
 };
 
 Host.Connect_f = function() {
+	console.log(arguments);
+	console.log(Cmd.argv[1]);
+
 	CL.cls.demonum = -1;
+
 	if (CL.cls.demoplayback === true) {
 		CL.StopPlayback();
 		CL.Disconnect();
 	}
+
 	CL.EstablishConnection(Cmd.argv[1]);
+
 	CL.cls.signon = 0;
 };
 
