@@ -814,7 +814,11 @@ CL.EstablishConnection = function(host) {
 	CL.Disconnect();
 	CL.host = host;
 
+	console.log(host);
+
 	var sock = NET.Connect(host);
+
+	console.log(sock);
 
 	if (sock == null) {
 		Host.Error('CL.EstablishConnection: connect failed\n');
