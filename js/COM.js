@@ -318,7 +318,7 @@ COM.LoadFile = function(filename) {
 
 	for (i = COM.searchpaths.length - 1; i >= 0; --i) {
 		search = COM.searchpaths[i];
-		netpath = search.filename + '/' + filename;
+		netpath = Def.basedir + search.filename + '/' + filename;
 		data = localStorage.getItem('Quake.' + netpath);
 
 		if (data != null) {
@@ -345,13 +345,13 @@ COM.LoadFile = function(filename) {
 					return new ArrayBuffer(0);
 				}
 
-				xhr.open('GET', search.filename + '/pak' + j + '.zip', false);
+				xhr.open('GET', Def.basedir + search.filename + '/pak' + j + '.zip', false);
 				// xhr.open('GET', PAK[j]['pak' + j], false);
 				xhr.setRequestHeader('Range', 'bytes=' + file.filepos + '-' + (file.filepos + file.filelen - 1));
 				xhr.send();
 
 				if ((xhr.status >= 200) && (xhr.status <= 299) && (xhr.responseText.length === file.filelen)) {
-					Sys.DPrint('PackFile: ' + search.filename + '/pak' + j + '.zip | File: ' + filename + '\n');
+					Sys.DPrint('PackFile: ' + Def.basedir + search.filename + '/pak' + j + '.zip | File: ' + filename + '\n');
 					Draw.EndDisc();
 
 					return Q.strmem(xhr.responseText);
@@ -482,7 +482,7 @@ COM.AddGameDirectory = function(dir) {
 	var pak, i = 0;
 
 	for (; ;) {
-		pak = COM.LoadPackFile(dir + '/' + 'pak' + i + '.zip');
+		pak = COM.LoadPackFile(Def.basedir + dir + '/' + 'pak' + i + '.zip');
 
 		if (pak == null) {
 			break;

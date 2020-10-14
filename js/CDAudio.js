@@ -167,11 +167,11 @@ CDAudio.Init = function() {
 		track = '/music/track' + (i <= 9 ? '0' : '') + i + '.ogg';
 
 		for (j = COM.searchpaths.length - 1; j >= 0; --j) {
-			xhr.open('HEAD', COM.searchpaths[j].filename + track, false);
+			xhr.open('HEAD', Def.basedir + COM.searchpaths[j].filename + track, false);
 			xhr.send();
 
 			if ((xhr.status >= 200) && (xhr.status <= 299)) {
-				CDAudio.known[i - 1] = COM.searchpaths[j].filename + track;
+				CDAudio.known[i - 1] = Def.basedir + COM.searchpaths[j].filename + track;
 				break;
 			}
 		}

@@ -41,14 +41,15 @@
 			<script type="text/javascript">
 				var Module = {
 					canvas: document.getElementById('canvas'),
-					print: function (msg) {
+					print: function(msg) {
 						console.log(msg);
 					},
-					printErr: function (text) {
-						if (text.substr(0, 28) === 'Cannot enlarge memory arrays')
+					printErr: function(text) {
+						if (text.substr(0, 28) === 'Cannot enlarge memory arrays') {
 							alert('Memory full/fragmented. Please reload the page.');
-						else
+						} else {
 							console.log(text);
+						}
 					}
 				};
 
@@ -59,7 +60,7 @@
 				s.setAttribute('type', 'text/javascript');
 				s.setAttribute('charset', 'utf-8');
 
-				s.addEventListener('error', function () {
+				s.addEventListener('error', function() {
 					alert('Error loading game script.');
 				}, false);
 
